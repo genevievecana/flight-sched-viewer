@@ -96,4 +96,10 @@ ext{
         rxjava()
     }
 
+    domainDependencies = Group {
+        javax()
+        rxjava()
+        unitTest()
+    }
+
 }
