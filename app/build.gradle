@@ -28,6 +28,4 @@ android {
 
 dependencies {
     appDependencies()
-
-    implementation project(':domain')
 }

@@ -82,7 +82,17 @@ ext{
         testImplementation deps.test.googleTruth
     }
 
+    domainModule = Group {
+        implementation project(':domain')
+    }
+
+    dataModule = Group {
+        implementation project(':data')
+    }
+
     appDependencies = Group {
+        domainModule()
+        dataModule()
         test()
         libraries()
         kotlin()
@@ -100,6 +110,18 @@ ext{
         javax()
         rxjava()
         unitTest()
+    }
+
+    dataDependencies = Group {
+        domainModule()
+        unitTest()
+        javax()
+        rxjava()
+        retrofit()
+        moshi()
+        dagger()
+        retrofit()
+        kotshi()
     }
 
 }
