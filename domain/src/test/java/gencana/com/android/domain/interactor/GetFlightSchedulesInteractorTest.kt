@@ -12,7 +12,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
 import java.security.InvalidParameterException
 
@@ -27,7 +26,7 @@ class GetFlightSchedulesInteractorTest: BaseTestClass() {
 
     private var params = FlightScheduleParams("a", "b", "c")
 
-    private var flightSchedule = FlightSchedule(TotalJourney(TEST_STRING), mock(Flight::class.java))
+    private var flightSchedule = FlightSchedule(TotalJourney(TEST_STRING), listOf())
 
     private lateinit var flightInteractor: GetFlightSchedulesInteractor
 

@@ -5,7 +5,7 @@ package gencana.com.android.domain.model
  */
 data class FlightSchedule(
         val totalJourney: TotalJourney,
-        val flight: Flight
+        val flight: List<Flight>
 )
 
 data class TotalJourney(
@@ -15,15 +15,16 @@ data class TotalJourney(
 data class Flight(
         val departure: Airport,
         val arrival: Airport,
-        val marketingCarrier: MarketingCarrier,
+        val marketingCarrier: Carrier,
+        val operatingCarrier: Carrier,
         val equipment: Equipment,
-        val daysOfOperation: Int
+        val details: Details
 )
 
 data class Airport(
-        val code: String,
-        val airPortCode: ScheduledTimeLocal,
-        val terminal: Terminal
+        val airportCode: String,
+        val scheduledTimeLocal: ScheduledTimeLocal,
+        val terminal: Terminal?
 )
 
 data class ScheduledTimeLocal(
@@ -34,11 +35,15 @@ data class Terminal(
         val name: String
 )
 
-data class MarketingCarrier(
+data class Carrier(
         val airlineId: String,
-        val flightNumber: Int
+        val flightNumber: Int?
 )
 
 data class Equipment(
         val airCraftCode: Int
+)
+
+data class Details(
+        val daysOfOperation: Int
 )
