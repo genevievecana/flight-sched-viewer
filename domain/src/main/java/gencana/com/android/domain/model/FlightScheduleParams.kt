@@ -5,13 +5,13 @@ import gencana.com.android.domain.hasNullOrEmpty
 /**
  * Created by Gen Cana on 20/10/2018
  */
-class FlightScheduleParams: Params {
-
-    var origin: String? = null
-    var destination: String? = null
-    var fromDateTime: String? = null
+data class FlightScheduleParams(
+        var origin: String?,
+        var destination: String?,
+        var fromDateTime: String?
+) : Params {
 
     override fun isValid(): Boolean
-            = arrayOf(origin, destination, fromDateTime).hasNullOrEmpty()
+            = !arrayOf(origin, destination, fromDateTime).hasNullOrEmpty()
 }
 

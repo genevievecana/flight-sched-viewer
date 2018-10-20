@@ -15,5 +15,5 @@ class GetFlightSchedulesInteractor
 ): UseCase<FlightSchedule, FlightScheduleParams>(){
 
     override fun registerObservable(params: FlightScheduleParams): Single<FlightSchedule>
-            = flightRepository.getFlightSchedules()
+            = flightRepository.getFlightSchedules(params.origin!!, params.destination!!, params.fromDateTime!!)
 }

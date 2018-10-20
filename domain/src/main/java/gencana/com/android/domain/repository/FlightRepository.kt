@@ -9,6 +9,7 @@ import io.reactivex.Single
 
 interface FlightRepository {
 
-    fun getFlightSchedules(): Single<FlightSchedule>
+    fun getFlightSchedules(origin: String, destination: String, fromDateTime: String)
+            : Single<FlightSchedule>
 
 }

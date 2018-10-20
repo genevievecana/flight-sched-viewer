@@ -8,7 +8,7 @@ import java.security.InvalidParameterException
  * Created by Gen Cana on 20/10/2018
  */
 
-abstract class  UseCase<T, P: Params>{
+abstract class  UseCase<T, P: Params?>{
 
     protected abstract fun registerObservable(params: P): Single<T>
 
@@ -20,7 +20,7 @@ abstract class  UseCase<T, P: Params>{
     }
 
     open fun validateParams(params: P): Boolean{
-        return params.isValid()
+        return params == null || params.isValid()
     }
 
 }
