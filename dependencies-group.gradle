@@ -1,0 +1,99 @@
+def Group(Closure closure) {
+    closure.delegate = dependencies
+    return closure
+}
+
+ext{
+
+    libraries = Group {
+        implementation deps.libs
+    }
+
+    kotlin = Group {
+        implementation deps.kotlin
+    }
+
+    androidXUi = Group {
+        implementation deps.androidXUi.appCompat
+        implementation deps.androidXUi.cardview
+        implementation deps.androidXUi.constraint
+        implementation deps.androidXUi.material
+    }
+
+    glide = Group {
+        implementation deps.glide.glide
+        kapt deps.glide.glideCompiler
+    }
+
+    dagger = Group {
+        implementation deps.dagger.dagger
+        kapt deps.dagger.compiler
+        kapt deps.dagger.processor
+        implementation deps.dagger.android
+    }
+
+    retrofit = Group {
+        implementation deps.retrofit.retrofit
+        implementation deps.retrofit.adapter
+        implementation deps.retrofit.moshi
+        implementation deps.okHttp.logging
+    }
+
+    moshi = Group {
+        kapt deps.moshi.kotlin
+        implementation deps.moshi.moshi
+    }
+
+    kotshi = Group {
+        implementation deps.kotshi.kotshi
+        kapt deps.kotshi.compiler
+    }
+
+    lifecycle = Group {
+        implementation deps.lifecycle.extensions
+        kapt deps.lifecycle.compiler
+        implementation deps.lifecycle.reactivestreams
+    }
+
+    rxjava = Group {
+        implementation deps.rxjava.rxjava
+        implementation deps.rxjava.rxandroid
+        implementation deps.rxjava.rxkotlin
+    }
+
+    javax = Group {
+        implementation deps.javax.annotation
+        implementation deps.javax.inject
+    }
+
+    test = Group {
+        testImplementation deps.test.junit
+        androidTestImplementation deps.test.testRunner
+        androidTestImplementation deps.test.espresso
+        testImplementation deps.test.mockito
+        testImplementation deps.test.archCoreTesting
+        testImplementation deps.test.googleTruth
+    }
+
+    unitTest = Group {
+        testImplementation deps.test.junit
+        testImplementation deps.test.mockito
+        testImplementation deps.test.archCoreTesting
+        testImplementation deps.test.googleTruth
+    }
+
+    appDependencies = Group {
+        test()
+        libraries()
+        kotlin()
+        androidXUi()
+        glide()
+        dagger()
+        retrofit()
+        moshi()
+        kotshi()
+        lifecycle()
+        rxjava()
+    }
+
+}

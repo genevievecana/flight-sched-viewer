@@ -1,0 +1,66 @@
+ext.deps = [
+
+        'build'      : [
+                'gradle'            :   "com.android.tools.build:gradle:$versions.gradle",
+                'kotlin'            :   "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+        ],
+
+
+        //Module Dependencies
+        'libs'                      :   fileTree(dir: 'libs', include: ['*.jar']),
+        'kotlin'                    :   "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin",
+        'androidXUi'   : [
+                'appCompat'         :   "androidx.appcompat:appcompat:$versions.appCompat",
+                'cardview'          :   "androidx.cardview:cardview:$versions.cardView",
+                'constraint'        :   "androidx.constraintlayout:constraintlayout:$versions.constraint",
+                'material'          :   "com.google.android.material:material:$versions.androidMaterial",
+        ],
+        'glide': [
+                'glide'             :   "com.github.bumptech.glide:glide:$versions.glide",
+                'glideCompiler'     :   "com.github.bumptech.glide:compiler:$versions.glide"
+        ],
+        'dagger'    : [
+                'dagger'            :   "com.google.dagger:dagger:$versions.dagger",
+                'compiler'          :   "com.google.dagger:dagger-compiler:$versions.dagger",
+                'processor'         :   "com.google.dagger:dagger-android-processor:$versions.dagger",
+                'android'           :   "com.google.dagger:dagger-android:$versions.dagger"
+        ],
+        'okHttp'     : [
+                'logging'           :   "com.squareup.okhttp3:logging-interceptor:$versions.okHttp"
+        ],
+        'retrofit'  : [
+                'retrofit'          :   "com.squareup.retrofit2:retrofit:$versions.retrofit",
+                'adapter'           :   "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
+                'moshi'             :   "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
+        ],
+        'moshi'     : [
+                'kotlin'            :   "com.squareup.moshi:moshi-kotlin:$versions.moshi",
+                'moshi'             :   "com.squareup.moshi:moshi:$versions.moshi"
+        ],
+        'kotshi'    : [
+                'kotshi'            :   "se.ansman.kotshi:api:$versions.kotshi",
+                'compiler'          :   "se.ansman.kotshi:compiler:$versions.kotshi"
+        ],
+        'lifecycle' : [
+                'extensions'        :   "androidx.lifecycle:lifecycle-extensions:$versions.androidXArchi",
+                'compiler'          :   "androidx.lifecycle:lifecycle-compiler:$versions.androidXArchi",
+                'reactivestreams'   :   "androidx.lifecycle:lifecycle-reactivestreams:$versions.androidXArchi"
+        ],
+        'rxjava'    : [
+                'rxjava'            :   "io.reactivex.rxjava2:rxjava:$versions.rxjava",
+                'rxandroid'         :   "io.reactivex.rxjava2:rxandroid:$versions.rxandroid",
+                'rxkotlin'          :   "io.reactivex.rxjava2:rxkotlin:$versions.rxkotlin"
+        ],
+        'javax': [
+                'annotation'        :   "javax.annotation:jsr250-api:$versions.javaxAnnotation",
+                'inject'            :   "javax.inject:javax.inject:$versions.javaxInject"
+        ],
+        'test'      : [
+                'junit'             :   "junit:junit:$versions.junit",
+                'testRunner'        :   "androidx.test:runner:$versions.testRunner",
+                'espresso'          :   "androidx.test.espresso:espresso-core:$versions.espresso",
+                'mockito'           :   "org.mockito:mockito-core:$versions.mockito",
+                'archCoreTesting'   :   "androidx.arch.core:core-testing:$versions.androidXArchi",
+                'googleTruth'       :   "com.google.truth:truth:$versions.googleTruth"
+        ]
+]
