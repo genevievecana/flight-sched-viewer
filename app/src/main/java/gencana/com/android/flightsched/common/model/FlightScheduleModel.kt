@@ -1,5 +1,8 @@
 package gencana.com.android.flightsched.common.model
 
+import gencana.com.android.flightsched.ui.adapter.viewholder.creator.ViewHolderEnum
+import gencana.com.android.flightsched.ui.adapter.viewholder.creator.ViewHolderInterface
+
 /**
  * Created by Gen Cana on 20/10/2018
  */
@@ -15,14 +18,19 @@ data class ScheduleResourceModel(
 data class FlightScheduleModel(
         val flightDuration: String,
         val flight: List<FlightModel>
-)
+): ViewHolderInterface{
+
+    override fun getViewType(): Int
+            = ViewHolderEnum.ITEM.viewType
+
+}
 
 data class FlightModel(
         val departure: AirportModel,
         val arrival: AirportModel,
         val marketingCarrier: CarrierModel,
         val operatingCarrier: CarrierModel?,
-        val airCraftCode: Int,
+        val airCraftCode: String,
         val daysOfOperation: Int
 )
 

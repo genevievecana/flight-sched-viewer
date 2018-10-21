@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MatchWidth"
+    android:paddingBottom="@dimen/_10sdp"
+    android:background="@drawable/card"
+    >
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_section1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.28"
+        />
+
+    <TextView
+        android:id="@+id/txt_origin"
+        style="@style/Text.Item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_section1"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="13dp"
+        tools:text="BCN" />
+
+    <ImageView
+        android:id="@+id/img_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_18sdp"
+        android:layout_margin="@dimen/_2sdp"
+        android:src="@drawable/ic_airplane_down"
+        app:layout_constraintTop_toBottomOf="@id/txt_origin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_section1"
+        />
+
+    <TextView
+        android:id="@+id/txt_destination"
+        style="@style/Text.Item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline_section1"
+        app:layout_constraintTop_toBottomOf="@id/img_icon"
+        tools:layout_editor_absoluteY="13dp"
+        tools:text="BCN" />
+
+    <View
+        style="@style/Divider.Vertical"
+        app:layout_constraintStart_toStartOf="@id/guideline_section1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_section2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.64"
+        />
+
+    <TextView
+        android:id="@+id/label_departure"
+        style="@style/Text.Item"
+        android:layout_marginStart="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="@id/guideline_section1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/departure" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_departure_time"
+        style="@style/Text.SubItem"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/_11sdp"
+        app:layout_constraintTop_toTopOf="@id/img_icon"
+        app:layout_constraintBottom_toBottomOf="@id/img_icon"
+        app:layout_constraintStart_toStartOf="@id/guideline_section1"
+        tools:text="9:00"
+        android:gravity="center"
+        app:autoSizeTextType="uniform"
+        />
+
+    <TextView
+        android:id="@+id/txt_departure_date"
+        style="@style/Text.SubItem"
+        android:layout_height="@dimen/_18sdp"
+        android:layout_marginStart="@dimen/_11sdp"
+        app:layout_constraintTop_toBottomOf="@id/txt_departure_time"
+        app:layout_constraintBottom_toBottomOf="@id/txt_destination"
+        app:layout_constraintStart_toStartOf="@id/guideline_section1"
+        android:gravity="bottom"
+        tools:text="Monday"
+        />
+
+    <View
+        style="@style/Divider.Vertical"
+        app:layout_constraintStart_toStartOf="@id/guideline_section2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/label_arrival"
+        style="@style/Text.Item"
+        android:layout_marginStart="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="@id/guideline_section2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/arrival" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_arrival_time"
+        style="@style/Text.SubItem"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/_11sdp"
+        app:layout_constraintTop_toTopOf="@id/img_icon"
+        app:layout_constraintBottom_toBottomOf="@id/img_icon"
+        app:layout_constraintStart_toStartOf="@id/guideline_section2"
+        tools:text="9:00"
+        android:gravity="center"
+        app:autoSizeTextType="uniform"
+        />
+
+    <TextView
+        android:id="@+id/txt_arrival_date"
+        style="@style/Text.SubItem"
+        android:layout_height="@dimen/_18sdp"
+        android:layout_marginStart="@dimen/_11sdp"
+        app:layout_constraintTop_toBottomOf="@id/txt_departure_time"
+        app:layout_constraintBottom_toBottomOf="@id/txt_destination"
+        app:layout_constraintStart_toStartOf="@id/guideline_section2"
+        android:gravity="bottom"
+        tools:text="Monday"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

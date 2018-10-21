@@ -63,7 +63,7 @@ data class CarrierData(
 
 @JsonSerializable
 data class EquipmentData(
-        @Json(name = "AircraftCode") val airCraftCode: Int
+        @Json(name = "AircraftCode") val airCraftCode: String
 )
 
 @JsonSerializable

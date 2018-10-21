@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Flight Sched</string>
+    <string name="departure">Departure</string>
+    <string name="arrival">Arrival</string>
 </resources>

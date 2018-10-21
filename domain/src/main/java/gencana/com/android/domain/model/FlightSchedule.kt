@@ -50,7 +50,7 @@ data class Carrier(
 )
 
 data class Equipment(
-        val airCraftCode: Int
+        val airCraftCode: String
 )
 
 data class Details(
