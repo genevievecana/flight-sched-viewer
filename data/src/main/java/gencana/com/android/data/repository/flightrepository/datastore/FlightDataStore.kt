@@ -1,6 +1,6 @@
 package gencana.com.android.data.repository.flightrepository.datastore
 
-import gencana.com.android.domain.model.FlightSchedule
+import gencana.com.android.data.entity.ScheduleResponseData
 import io.reactivex.Single
 
 /**
@@ -10,5 +10,5 @@ import io.reactivex.Single
 interface FlightDataStore{
 
     fun getFlightSchedules(origin: String, destination: String, fromDateTime: String)
-            : Single<FlightSchedule>
+            : Single<ScheduleResponseData>
 }

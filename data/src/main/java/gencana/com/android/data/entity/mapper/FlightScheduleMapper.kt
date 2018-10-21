@@ -7,6 +7,12 @@ import gencana.com.android.domain.model.*
  * Created by Gen Cana on 20/10/2018
  */
 
+fun ScheduleResponseData.mapToDomain(): ScheduleResponse
+        = ScheduleResponse(scheduleResource.mapToDomain())
+
+fun ScheduleResourceData.mapToDomain(): ScheduleResource
+        = ScheduleResource(schedule.map{it.mapToDomain()})
+
 fun FlightScheduleData.mapToDomain(): FlightSchedule
         = FlightSchedule(totalJourney.mapToDomain(), flight.map { it.mapToDomain() })
 
@@ -15,7 +21,7 @@ fun TotalJourneyData.mapToDomain(): TotalJourney
 
 fun FlightData.mapToDomain(): Flight
         = Flight(departure.mapToDomain(), arrival.mapToDomain(),
-                marketingCarrier.mapToDomain(), operatingCarrier.mapToDomain(),
+                marketingCarrier.mapToDomain(), operatingCarrier?.mapToDomain(),
                 equipment.mapToDomain(), details.mapToDomain())
 
 fun AirportData.mapToDomain(): Airport

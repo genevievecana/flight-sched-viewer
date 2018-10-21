@@ -4,6 +4,14 @@ package gencana.com.android.flightsched.common.model
  * Created by Gen Cana on 20/10/2018
  */
 
+data class ScheduleResponseModel(
+        val scheduleResource: ScheduleResourceModel
+)
+
+data class ScheduleResourceModel(
+        val schedule: List<FlightScheduleModel>
+)
+
 data class FlightScheduleModel(
         val flightDuration: String,
         val flight: List<FlightModel>
@@ -13,7 +21,7 @@ data class FlightModel(
         val departure: AirportModel,
         val arrival: AirportModel,
         val marketingCarrier: CarrierModel,
-        val operatingCarrier: CarrierModel,
+        val operatingCarrier: CarrierModel?,
         val airCraftCode: Int,
         val daysOfOperation: Int
 )

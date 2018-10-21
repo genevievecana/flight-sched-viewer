@@ -8,6 +8,16 @@ import se.ansman.kotshi.JsonSerializable
  */
 
 @JsonSerializable
+data class ScheduleResponseData(
+        @Json(name = "ScheduleResource") val scheduleResource: ScheduleResourceData
+)
+
+@JsonSerializable
+data class ScheduleResourceData(
+    @Json(name = "Schedule") val schedule: List<FlightScheduleData>
+)
+
+@JsonSerializable
 data class FlightScheduleData(
         @Json(name = "TotalJourney") val totalJourney: TotalJourneyData,
         @Json(name = "Flight") val flight: List<FlightData>
@@ -23,40 +33,40 @@ data class FlightData(
         @Json(name = "Departure") val departure: AirportData,
         @Json(name = "Arrival") val arrival: AirportData,
         @Json(name = "MarketingCarrier") val marketingCarrier: CarrierData,
-        @Json(name = "OperatingCarrier") val operatingCarrier: CarrierData,
+        @Json(name = "OperatingCarrier") val operatingCarrier: CarrierData?,
         @Json(name = "Equipment") val equipment: EquipmentData,
         @Json(name = "Details") val details: DetailsData
 )
 
 @JsonSerializable
 data class AirportData(
-        val airportCode: String,
-        val scheduledTimeLocal: ScheduledTimeLocalData,
-        val terminal: TerminalData?
+        @Json(name = "AirportCode") val airportCode: String,
+        @Json(name = "ScheduledTimeLocal") val scheduledTimeLocal: ScheduledTimeLocalData,
+        @Json(name = "Terminal") val terminal: TerminalData?
 )
 
 @JsonSerializable
 data class ScheduledTimeLocalData(
-        val dateTime: String
+        @Json(name = "DateTime")val dateTime: String
 )
 
 @JsonSerializable
 data class TerminalData(
-        val name: String
+        @Json(name = "Name") val name: String
 )
 
 @JsonSerializable
 data class CarrierData(
-        val airlineId: String,
-        val flightNumber: Int?
+        @Json(name = "AirlineID") val airlineId: String,
+        @Json(name = "FlightNumber") val flightNumber: Int?
 )
 
 @JsonSerializable
 data class EquipmentData(
-        val airCraftCode: Int
+        @Json(name = "AircraftCode") val airCraftCode: Int
 )
 
 @JsonSerializable
 data class DetailsData(
-        val daysOfOperation: Int
+        @Json(name = "DaysOfOperation") val daysOfOperation: Int
 )

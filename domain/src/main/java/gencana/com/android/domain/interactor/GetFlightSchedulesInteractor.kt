@@ -1,7 +1,7 @@
 package gencana.com.android.domain.interactor
 
-import gencana.com.android.domain.model.FlightSchedule
 import gencana.com.android.domain.model.FlightScheduleParams
+import gencana.com.android.domain.model.ScheduleResponse
 import gencana.com.android.domain.repository.FlightRepository
 import io.reactivex.Single
 import javax.inject.Inject
@@ -12,8 +12,8 @@ import javax.inject.Inject
 class GetFlightSchedulesInteractor
 @Inject constructor(
         private val flightRepository: FlightRepository
-): UseCase<FlightSchedule, FlightScheduleParams>(){
+): UseCase<ScheduleResponse, FlightScheduleParams>(){
 
-    override fun registerObservable(params: FlightScheduleParams): Single<FlightSchedule>
+    override fun registerObservable(params: FlightScheduleParams): Single<ScheduleResponse>
             = flightRepository.getFlightSchedules(params.origin!!, params.destination!!, params.fromDateTime!!)
 }

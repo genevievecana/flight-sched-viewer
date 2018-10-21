@@ -2,8 +2,8 @@ package gencana.com.android.flightsched.ui.view.main
 
 import gencana.com.android.domain.interactor.GetFlightSchedulesInteractor
 import gencana.com.android.domain.model.FlightScheduleParams
-import gencana.com.android.flightsched.common.model.FlightScheduleModel
 import gencana.com.android.flightsched.common.model.Result
+import gencana.com.android.flightsched.common.model.ScheduleResponseModel
 import gencana.com.android.flightsched.common.model.mapper.mapToPresentation
 import gencana.com.android.flightsched.ui.view.base.BaseViewModel
 import io.reactivex.Observable
@@ -14,9 +14,9 @@ import javax.inject.Inject
  */
 class MainViewModel @Inject constructor(
         private val flightSchedulesInteractor: GetFlightSchedulesInteractor
-): BaseViewModel<FlightScheduleModel, FlightScheduleParams>() {
+): BaseViewModel<ScheduleResponseModel, FlightScheduleParams>() {
 
-    override fun getObservable(params: FlightScheduleParams): Observable<Result<FlightScheduleModel>>
+    override fun getObservable(params: FlightScheduleParams): Observable<Result<ScheduleResponseModel>>
         = flightSchedulesInteractor.getObservable(params)
             .toObservable()
             .map{ Result(it.mapToPresentation()) }
