@@ -20,6 +20,11 @@ ext{
         implementation deps.androidXUi.material
     }
 
+    intuitAdjuster = Group {
+        implementation deps.intuitAdjuster.sdp
+        implementation deps.intuitAdjuster.ssp
+    }
+
     glide = Group {
         implementation deps.glide.glide
         kapt deps.glide.glideCompiler
@@ -97,6 +102,7 @@ ext{
         libraries()
         kotlin()
         androidXUi()
+        intuitAdjuster()
         glide()
         dagger()
         retrofit()

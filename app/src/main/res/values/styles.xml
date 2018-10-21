@@ -8,4 +8,45 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="WrapContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MatchWidth">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MatchParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="Text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="Text.Item">
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:textColor">@color/text_item</item>
+    </style>
+
+    <style name="Text.SubItem">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textColor">@color/text_subitem</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:background">@color/divider</item>
+    </style>
+
+    <style name="Divider.Vertical">
+        <item name="android:layout_width">@dimen/_1sdp</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
 </resources>

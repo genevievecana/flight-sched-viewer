@@ -24,6 +24,7 @@ ext.versions = [
         'rxkotlin'          :   '2.3.0',
         'javaxAnnotation'   :   '1.0',
         'javaxInject'       :   '1',
+        'intuitAdjuster'    :   '1.0.6',
 
 
         //testing

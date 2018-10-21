@@ -15,6 +15,10 @@ ext.deps = [
                 'constraint'        :   "androidx.constraintlayout:constraintlayout:$versions.constraint",
                 'material'          :   "com.google.android.material:material:$versions.androidMaterial",
         ],
+        'intuitAdjuster': [
+                'sdp'               :   "com.intuit.sdp:sdp-android:$versions.intuitAdjuster",
+                'ssp'               :   "com.intuit.ssp:ssp-android:$versions.intuitAdjuster"
+        ],
         'glide': [
                 'glide'             :   "com.github.bumptech.glide:glide:$versions.glide",
                 'glideCompiler'     :   "com.github.bumptech.glide:compiler:$versions.glide"
