@@ -6,8 +6,9 @@ import dagger.Provides
 import gencana.com.android.data.BuildConfig
 import gencana.com.android.data.source.local.SharedPrefHelper
 import gencana.com.android.data.source.remote.ApiServiceHolder
-import gencana.com.android.data.source.remote.ApplicationJsonAdapterFactory
+import gencana.com.android.data.source.remote.adapter.ApplicationJsonAdapterFactory
 import gencana.com.android.data.source.remote.FlightApiService
+import gencana.com.android.data.source.remote.adapter.SingleToArrayAdapter
 import gencana.com.android.data.source.remote.authentication.AuthInterceptor
 import gencana.com.android.data.source.remote.authentication.TokenAuthenticator
 import io.reactivex.Scheduler
@@ -59,7 +60,10 @@ class NetworkModule {
     @Provides
     @Singleton
     fun providesMoshi(): Moshi
-            = Moshi.Builder().add(ApplicationJsonAdapterFactory.INSTANCE).build()
+            = Moshi.Builder()
+                .add(SingleToArrayAdapter.FACTORY)
+                .add(ApplicationJsonAdapterFactory.INSTANCE)
+                .build()
 
     @Provides
     @Singleton

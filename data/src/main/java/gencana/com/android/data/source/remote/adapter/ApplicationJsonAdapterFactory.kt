@@ -1,4 +1,4 @@
-package gencana.com.android.data.source.remote
+package gencana.com.android.data.source.remote.adapter
 
 import com.squareup.moshi.JsonAdapter
 import se.ansman.kotshi.KotshiJsonAdapterFactory

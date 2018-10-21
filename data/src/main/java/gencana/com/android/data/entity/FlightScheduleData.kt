@@ -1,6 +1,7 @@
 package gencana.com.android.data.entity
 
 import com.squareup.moshi.Json
+import gencana.com.android.data.source.remote.adapter.SingleToArray
 import se.ansman.kotshi.JsonSerializable
 
 /**
@@ -14,13 +15,13 @@ data class ScheduleResponseData(
 
 @JsonSerializable
 data class ScheduleResourceData(
-    @Json(name = "Schedule") val schedule: List<FlightScheduleData>
+        @Json(name = "Schedule") val schedule: List<FlightScheduleData>
 )
 
 @JsonSerializable
 data class FlightScheduleData(
         @Json(name = "TotalJourney") val totalJourney: TotalJourneyData,
-        @Json(name = "Flight") val flight: List<FlightData>
+        @Json(name = "Flight") @SingleToArray val flight: List<FlightData>
 )
 
 @JsonSerializable
