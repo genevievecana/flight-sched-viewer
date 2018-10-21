@@ -4,8 +4,12 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import gencana.com.android.data.BuildConfig
+import gencana.com.android.data.source.local.SharedPrefHelper
+import gencana.com.android.data.source.remote.ApiServiceHolder
 import gencana.com.android.data.source.remote.ApplicationJsonAdapterFactory
 import gencana.com.android.data.source.remote.FlightApiService
+import gencana.com.android.data.source.remote.authentication.AuthInterceptor
+import gencana.com.android.data.source.remote.authentication.TokenAuthenticator
 import io.reactivex.Scheduler
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -24,8 +28,21 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providesOkHttpClient(): OkHttpClient {
+    fun provideTokenAuthenticator(
+            apiServiceHolder: ApiServiceHolder,
+            prefHelper: SharedPrefHelper
+    ): TokenAuthenticator
+            = TokenAuthenticator(apiServiceHolder, prefHelper)
+
+    @Provides
+    @Singleton
+    fun providesOkHttpClient(
+            tokenAuthenticator: TokenAuthenticator,
+            authInterceptor: AuthInterceptor
+    ): OkHttpClient {
         val okHttpClient = OkHttpClient.Builder()
+                .authenticator(tokenAuthenticator)
+                .addInterceptor(authInterceptor)
         if (BuildConfig.DEBUG){
             okHttpClient.addInterceptor(HttpLoggingInterceptor()
                     .setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -62,11 +79,23 @@ class NetworkModule {
             .client(okHttpClient)
             .build()
 
+
+    @Provides
+    @Singleton
+    fun apiServiceHolder(): ApiServiceHolder {
+        return ApiServiceHolder()
+    }
+
     @Provides
     @Singleton
     fun providesApiService(
-            retrofit: Retrofit
-    ): FlightApiService
-        = retrofit.create(FlightApiService::class.java)
+            retrofit: Retrofit,
+            apiServiceHolder: ApiServiceHolder
+    ): FlightApiService{
+        val flightApiService = retrofit.create(FlightApiService::class.java)
+        apiServiceHolder.setApiService(flightApiService)
+        return flightApiService
+    }
+
 
 }
