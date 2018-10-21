@@ -7,6 +7,7 @@ import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import gencana.com.android.data.di.DataModule
 import gencana.com.android.flightsched.application.MyApplication
+import gencana.com.android.flightsched.di.modules.ActivitiesBindingModule
 import gencana.com.android.flightsched.di.modules.AppModule
 import javax.inject.Singleton
 
@@ -18,6 +19,7 @@ import javax.inject.Singleton
 @Component(modules = [
     AndroidInjectionModule::class,
     AppModule::class,
+    ActivitiesBindingModule::class,
     DataModule::class
 ])
 
