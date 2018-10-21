@@ -1,10 +1,7 @@
 package gencana.com.android.domain.interactor
 
 import gencana.com.android.domain.BaseTestClass
-import gencana.com.android.domain.model.Flight
-import gencana.com.android.domain.model.FlightSchedule
-import gencana.com.android.domain.model.FlightScheduleParams
-import gencana.com.android.domain.model.TotalJourney
+import gencana.com.android.domain.model.*
 import gencana.com.android.domain.repository.FlightRepository
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
@@ -26,12 +23,13 @@ class GetFlightSchedulesInteractorTest: BaseTestClass() {
 
     private var params = FlightScheduleParams("a", "b", "c")
 
-    private var flightSchedule = FlightSchedule(TotalJourney(TEST_STRING), listOf())
+    @Mock
+    private lateinit var scheduleResource: ScheduleResponse
 
     private lateinit var flightInteractor: GetFlightSchedulesInteractor
 
     private val testObserver by lazy {
-        TestObserver<FlightSchedule>()
+        TestObserver<ScheduleResponse>()
     }
 
     override fun setup() {
@@ -42,13 +40,13 @@ class GetFlightSchedulesInteractorTest: BaseTestClass() {
     @Test
     fun `test valid usecase`() {
         Mockito.`when`(flightRepository.getFlightSchedules(params.origin!!, params.destination!!, params.fromDateTime!!))
-                .thenReturn(Single.just(flightSchedule))
+                .thenReturn(Single.just(scheduleResource))
 
         flightInteractor.getObservable(params)
                 .subscribe(testObserver)
 
         assertBuilder.that(testObserver.assertValue{
-            it.totalJourney.duration == TEST_STRING
+            it == scheduleResource
         })
 
         assertBuilder.that(testObserver.assertComplete())

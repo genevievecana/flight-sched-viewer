@@ -1,14 +1,11 @@
 package gencana.com.android.data.repository.flightrepository
 
 import gencana.com.android.data.BaseTestClass
-import gencana.com.android.data.entity.FlightScheduleData
+import gencana.com.android.data.entity.ScheduleResourceData
+import gencana.com.android.data.entity.ScheduleResponseData
 import gencana.com.android.data.repository.flightrepository.datastore.FlightDataStore
 import gencana.com.android.data.repository.flightrepository.datastore.FlightDataStoreFactory
-import gencana.com.android.domain.model.FlightSchedule
-import gencana.com.android.domain.model.TotalJourney
 import io.reactivex.Single
-import io.reactivex.observers.TestObserver
-
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,31 +28,24 @@ class FlightDataRepositoryTest: BaseTestClass() {
     @Mock
     private lateinit var dataStore: FlightDataStore
 
-    private val testObserver by lazy {
-        TestObserver<FlightSchedule>()
-    }
-
-    private val flightSchedule by lazy {
-        FlightSchedule(TotalJourney(TEST_STRING), listOf())
-    }
+    @Mock
+    private lateinit var scheduleResourceData: ScheduleResourceData
 
     override fun setup() {
         dataRepository = FlightDataRepository(dataStoreFactory)
         `when`(dataStoreFactory.create()).thenReturn(dataStore)
         `when`(dataStore.getFlightSchedules(anyString(), anyString(), anyString()))
-                .thenReturn(Single.just(flightSchedule))
+                .thenReturn(Single.just(ScheduleResponseData(scheduleResourceData)))
     }
 
     @Test
     fun `test valid`(){
         dataRepository
                 .getFlightSchedules("a", "b", "c")
-                .subscribe(testObserver)
+                .subscribe()
 
         verify(dataStoreFactory).create()
         verify(dataStore).getFlightSchedules(anyString(), anyString(), anyString())
-
-        assertBuilder.that(testObserver.assertResult(flightSchedule))
 
         verifyNoMoreInteractions(dataStoreFactory)
         verifyNoMoreInteractions(dataStore)
