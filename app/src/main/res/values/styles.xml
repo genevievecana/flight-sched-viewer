@@ -30,6 +30,12 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+    <style name="Text.Header">
+        <item name="android:textSize">@dimen/_20ssp</item>
+        <item name="android:textColor">@color/text_item</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Text.Item">
         <item name="android:textSize">@dimen/_14ssp</item>
         <item name="android:textColor">@color/text_item</item>
@@ -47,6 +53,15 @@
     <style name="Divider.Vertical">
         <item name="android:layout_width">@dimen/_1sdp</item>
         <item name="android:layout_height">0dp</item>
+    </style>
+
+    <style name="Divider.Horizontal">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/_1sdp</item>
+    </style>
+
+    <style name="Divider.Horizontal.Active">
+        <item name="android:background">@color/colorAccent</item>
     </style>
 
 </resources>

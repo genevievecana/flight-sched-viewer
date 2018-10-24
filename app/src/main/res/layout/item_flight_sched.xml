@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MatchWidth"
+    app:cardCornerRadius="@dimen/_8sdp"
+    app:contentPadding="@dimen/_10sdp"
+    android:layout_marginStart="@dimen/_8sdp"
+    android:layout_marginEnd="@dimen/_8sdp"
+    android:layout_marginBottom="@dimen/_8sdp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/MatchWidth"
+        >
+
+        <TextView
+            android:id="@+id/txt_origin_code"
+            style="@style/Text.Header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="BCN"
+            />
+
+        <TextView
+            android:id="@+id/txt_origin_time"
+            style="@style/Text.SubItem"
+            app:layout_constraintStart_toStartOf="@id/txt_origin_code"
+            app:layout_constraintTop_toBottomOf="@id/txt_origin_code"
+            tools:text="10:00 AM"
+            />
+
+        <TextView
+            android:id="@+id/txt_origin_date"
+            style="@style/Text.SubItem"
+            app:layout_constraintStart_toStartOf="@id/txt_origin_time"
+            app:layout_constraintTop_toBottomOf="@id/txt_origin_time"
+            tools:text="Oct 24, 2018"
+            />
+
+        <TextView
+            android:id="@+id/txt_arrival_code"
+            style="@style/Text.Header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="BCN"
+            />
+
+        <TextView
+            android:id="@+id/txt_arrival_time"
+            style="@style/Text.SubItem"
+            app:layout_constraintEnd_toEndOf="@id/txt_arrival_code"
+            app:layout_constraintTop_toBottomOf="@id/txt_arrival_code"
+            tools:text="10:00 AM"
+            />
+
+        <TextView
+            android:id="@+id/txt_arrival_date"
+            style="@style/Text.SubItem"
+            app:layout_constraintEnd_toEndOf="@id/txt_arrival_time"
+            app:layout_constraintTop_toBottomOf="@id/txt_arrival_time"
+            tools:text="Oct 24, 2018"
+            />
+        
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_airplane_left"
+            android:layout_marginStart="@dimen/_20sdp"
+            app:layout_constraintTop_toTopOf="@id/txt_origin_code"
+            app:layout_constraintBottom_toBottomOf="@id/txt_origin_code"
+            app:layout_constraintStart_toEndOf="@id/txt_origin_code"
+            />
+
+        <View
+            android:id="@+id/divider"
+            style="@style/Divider.Horizontal.Active"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            app:layout_constraintStart_toEndOf="@id/img_icon"
+            app:layout_constraintTop_toTopOf="@id/img_icon"
+            app:layout_constraintBottom_toBottomOf="@id/img_icon"
+            app:layout_constraintEnd_toStartOf="@id/txt_arrival_code"
+            />
+
+        <TextView
+            android:id="@+id/txt_stop_count"
+            style="@style/Text.SubItem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_origin_code"
+            tools:text="2 stops"
+            />
+
+        <TextView
+            android:id="@+id/txt_duration"
+            style="@style/Text.SubItem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_stop_count"
+            tools:text="10h"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

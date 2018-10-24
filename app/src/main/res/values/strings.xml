@@ -2,4 +2,6 @@
     <string name="app_name">Flight Sched</string>
     <string name="departure">Departure</string>
     <string name="arrival">Arrival</string>
+    <string name="stop_count">%d stop</string>
+    <string name="stops_count">%d stops</string>
 </resources>

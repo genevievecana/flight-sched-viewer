@@ -21,12 +21,18 @@ class MainActivity : BaseActivity<MainViewModel, ScheduleResponseModel>() {
 
     override fun setupActivity(savedInstanceState: Bundle?) {
         recyclerMultiAdapter = recycler_view.defaultMultiAdapter()
-        //Test
-        viewModel.switchMapDefaultExecute(
-                Observable.just(FlightScheduleParams("MNL", "JFK", "2018-10-23")))
+
+        //TODO
+        val params = FlightScheduleParams("SFO", "CEB", "2018-10-23")
+        viewModel.switchMapDefaultExecute(Observable.create<FlightScheduleParams>{
+            swipe_refresh.apply { setOnRefreshListener { it.onNext(params) } }
+            it.setCancellable { swipe_refresh.setOnRefreshListener(null) }
+        }.startWith(params))
+
     }
 
     override fun showLoading(show: Boolean) {
+        swipe_refresh.isRefreshing = show
     }
 
     override fun onResponseSuccess(data: ScheduleResponseModel) {
