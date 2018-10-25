@@ -4,4 +4,6 @@
     <string name="arrival">Arrival</string>
     <string name="stop_count">%d stop</string>
     <string name="stops_count">%d stops</string>
+    <string name="departure_terminal">from Terminal %s</string>
+    <string name="aircraft_type">Aircraft %s</string>
 </resources>

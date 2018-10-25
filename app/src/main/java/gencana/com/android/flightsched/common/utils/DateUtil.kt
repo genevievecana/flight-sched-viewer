@@ -9,11 +9,15 @@ import java.util.*
 
 const val FORMAT_DEFAULT_DATE = "yyyy-MM-dd'T'hh:mm"
 const val FORMAT_TIME_12 = "hh:mm a"
+const val FORMAT_TIME_24 = "HH:mm"
 const val FORMAT_READABLE_DATE= "MMM d, yyyy"
 const val FORMAT_READABLE_DATETIME= "MMM d, HH:mm"
 
 fun formatDefaultToTime(dateString: String?)
         = formatStringDate(dateString, FORMAT_TIME_12)
+
+fun formatDefaultToTime24(dateString: String?)
+        = formatStringDate(dateString, FORMAT_TIME_24)
 
 fun formatDefaultToReadableDate(dateString: String?)
         = formatStringDate(dateString, FORMAT_READABLE_DATE)

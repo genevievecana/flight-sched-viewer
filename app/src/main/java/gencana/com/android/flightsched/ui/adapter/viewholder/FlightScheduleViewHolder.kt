@@ -7,6 +7,7 @@ import gencana.com.android.flightsched.common.utils.formatDefaultToTime
 import gencana.com.android.flightsched.common.utils.formatDuration
 import gencana.com.android.flightsched.common.utils.formatStopCount
 import gencana.com.android.flightsched.ui.adapter.RecyclerMultiAdapter
+import gencana.com.android.flightsched.ui.custom.FlightItemView
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.item_flight_sched.view.*
 
@@ -33,6 +34,24 @@ class FlightScheduleViewHolder(view: View): RecyclerMultiAdapter.BaseViewHolder<
             txt_stop_count.text = data.flight.lastIndex.let {
                 String.format(context.getString(formatStopCount(it)), it)
             }
+
+            data.flight.forEachIndexed { index, flightModel ->
+                val subView = itemView.layout_subflights.getChildAt(index)
+                        ?.let{
+                            it as FlightItemView
+                        }?: FlightItemView(itemView.context).also {
+                    itemView.layout_subflights.addView(it)
+                }
+                subView.onBind(flightModel)
+            }
+
+            data.flight.size
+                    .takeIf { it < itemView.layout_subflights.childCount}
+                    ?.apply {
+                        for (index in this until itemView.layout_subflights.childCount){
+                            itemView.layout_subflights.removeView(itemView.layout_subflights.getChildAt(index))
+                        }
+                    }
 
             setOnClickListener { itemClickPublisher?.onNext(data) }
         }
