@@ -15,7 +15,7 @@ data class ScheduleResponseData(
 
 @JsonSerializable
 data class ScheduleResourceData(
-        @Json(name = "Schedule") val schedule: List<FlightScheduleData>
+        @Json(name = "Schedule") @SingleToArray val schedule: List<FlightScheduleData>
 )
 
 @JsonSerializable
