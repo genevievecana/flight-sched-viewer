@@ -7,7 +7,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import gencana.com.android.domain.model.FlightScheduleParams
 import gencana.com.android.flightsched.R
 import gencana.com.android.flightsched.common.extensions.setEmptyInputError
-import gencana.com.android.flightsched.common.model.FlightModel
+import gencana.com.android.flightsched.common.utils.getCurrentDefaultDate
 import kotlinx.android.synthetic.main.view_search_flight.view.*
 
 /**
@@ -20,7 +20,7 @@ class SearchFlightView @JvmOverloads constructor(
 
     interface SearchListener {
 
-        fun onSearchClicked(from: String, to: String, date: String?)
+        fun onSearchClicked(searchParams: FlightScheduleParams)
     }
 
     private val view = setupView(this)
@@ -30,8 +30,7 @@ class SearchFlightView @JvmOverloads constructor(
     override fun postSetup(view: View) {
         view.btn_search.setOnClickListener {
            if (validateFields()){
-                searchListener?.onSearchClicked(view.auto_search_from.text.toString(),
-                        view.auto_search_to.text.toString(), view.et_date.text.toString())
+                searchListener?.onSearchClicked(getSearchParameters())
            }
         }
     }
@@ -44,7 +43,7 @@ class SearchFlightView @JvmOverloads constructor(
 
     fun getSearchParameters(): FlightScheduleParams{
         return FlightScheduleParams(view.auto_search_from.text.toString(),
-                view.auto_search_to.text.toString(), view.et_date.text.toString())
+                view.auto_search_to.text.toString(), getCurrentDefaultDate())
     }
 
     private fun validateFields(): Boolean{

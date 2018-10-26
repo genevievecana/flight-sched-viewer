@@ -9,6 +9,7 @@ import gencana.com.android.domain.model.FlightScheduleParams
 import gencana.com.android.flightsched.R
 import gencana.com.android.flightsched.common.constants.KEY_FLIGHT_DATA
 import gencana.com.android.flightsched.common.extensions.defaultMultiAdapter
+import gencana.com.android.flightsched.common.extensions.hideKeyboard
 import gencana.com.android.flightsched.common.extensions.startNewActivity
 import gencana.com.android.flightsched.common.model.FlightScheduleModel
 import gencana.com.android.flightsched.common.model.ScheduleResponseModel
@@ -57,9 +58,10 @@ class MainActivity : BaseActivity<MainViewModel, ScheduleResponseModel>() {
             it.setCancellable { swipe_refresh.setOnRefreshListener(null) }
 
             search_flight_view.searchListener = object : SearchFlightView.SearchListener{
-                override fun onSearchClicked(from: String, to: String, date: String?) {
+                override fun onSearchClicked(searchParams: FlightScheduleParams) {
+                    hideKeyboard()
                     app_bar.setExpanded(false)
-                    it.onNext(getSearchParams())
+                    it.onNext(searchParams)
                 }
             }
         })
