@@ -12,6 +12,7 @@ ext.versions = [
         'cardView'          :   '1.0.0',
         'constraint'        :   '2.0.0-alpha2',
         'androidMaterial'   :   '1.0.0',
+        'googleServices'   :    '16.0.0',
         'dagger'            :   '2.16',
         'glide'             :   '4.8.0',
         'okHttp'            :   '3.11.0',

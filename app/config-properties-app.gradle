@@ -1,0 +1,18 @@
+class Config {
+    Properties privateProperties
+}
+
+ext {
+    config = new Config()
+    def basePath = rootDir.absolutePath + "/app/configuration/"
+
+    config.privateProperties = new Properties()
+    def propertyFileName = "config-app.properties"
+    config.privateProperties.load(new FileInputStream(rootProject.file((basePath + propertyFileName))))
+}
+
+android {
+    defaultConfig {
+        manifestPlaceholders = [google_map_key: config.privateProperties.GOOGLE_MAPS_KEY]
+    }
+}

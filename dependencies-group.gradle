@@ -20,6 +20,10 @@ ext{
         implementation deps.androidXUi.material
     }
 
+    googleServices = Group {
+        implementation deps.googleServices.map
+    }
+
     intuitAdjuster = Group {
         implementation deps.intuitAdjuster.sdp
         implementation deps.intuitAdjuster.ssp
@@ -102,6 +106,7 @@ ext{
         libraries()
         kotlin()
         androidXUi()
+        googleServices()
         intuitAdjuster()
         glide()
         dagger()
