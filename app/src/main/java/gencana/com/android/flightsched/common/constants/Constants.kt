@@ -5,3 +5,4 @@ package gencana.com.android.flightsched.common.constants
  */
 
 const val SHARED_PREF_NAME = "app_shared_pref"
+const val KEY_FLIGHT_DATA = "flight_data"

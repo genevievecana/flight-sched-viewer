@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge>
+    <com.google.android.material.appbar.AppBarLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:expandedTitleTextAppearance="@style/CollapsingToolbarExpandedTextStyle"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/colorPrimary"
+            >
+
+            <gencana.com.android.flightsched.ui.custom.SearchFlightView
+                android:id="@+id/search_flight_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toobar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                android:background="@color/colorPrimary"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</merge>
+

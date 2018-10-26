@@ -14,9 +14,16 @@ interface BaseView<T> {
     @LayoutRes
     fun getLayout(): Int
 
-    fun setupView(viewGroup: ViewGroup): View
-        = LayoutInflater.from(viewGroup.context)
-            .inflate(getLayout(), viewGroup, true)
+    fun setupView(viewGroup: ViewGroup): View {
+        val view = LayoutInflater.from(viewGroup.context)
+                .inflate(getLayout(), viewGroup, true)
+        postSetup(view)
+        return view
+    }
+
+    fun postSetup(view: View){
+
+    }
 
     fun onBind(data: T)
 

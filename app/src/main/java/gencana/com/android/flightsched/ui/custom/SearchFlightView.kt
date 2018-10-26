@@ -1,0 +1,60 @@
+package gencana.com.android.flightsched.ui.custom
+
+import android.content.Context
+import android.util.AttributeSet
+import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import gencana.com.android.domain.model.FlightScheduleParams
+import gencana.com.android.flightsched.R
+import gencana.com.android.flightsched.common.extensions.setEmptyInputError
+import gencana.com.android.flightsched.common.model.FlightModel
+import kotlinx.android.synthetic.main.view_search_flight.view.*
+
+/**
+ * Created by Gen Cana on 26/10/2018
+ */
+
+class SearchFlightView @JvmOverloads constructor(
+        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : CoordinatorLayout(context, attrs, defStyleAttr), BaseView<Nothing> {
+
+    interface SearchListener {
+
+        fun onSearchClicked(from: String, to: String, date: String?)
+    }
+
+    private val view = setupView(this)
+
+    var searchListener: SearchListener? = null
+
+    override fun postSetup(view: View) {
+        view.btn_search.setOnClickListener {
+           if (validateFields()){
+                searchListener?.onSearchClicked(view.auto_search_from.text.toString(),
+                        view.auto_search_to.text.toString(), view.et_date.text.toString())
+           }
+        }
+    }
+
+    override fun onBind(data: Nothing) {
+
+    }
+
+    override fun getLayout(): Int = R.layout.view_search_flight
+
+    fun getSearchParameters(): FlightScheduleParams{
+        return FlightScheduleParams(view.auto_search_from.text.toString(),
+                view.auto_search_to.text.toString(), view.et_date.text.toString())
+    }
+
+    private fun validateFields(): Boolean{
+        view.til_from.setEmptyInputError(view.auto_search_from,
+                String.format(context.getString(R.string.invalid_field), context.getString(R.string.origin)))
+
+        view.til_to.setEmptyInputError(view.auto_search_to,
+                String.format(context.getString(R.string.invalid_field), context.getString(R.string.destination)))
+
+        return view.til_from.error == null && view.til_to.error == null
+    }
+
+}

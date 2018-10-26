@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import gencana.com.android.flightsched.common.extensions.addErrorHandler
 import gencana.com.android.flightsched.common.model.Result
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.disposables.CompositeDisposable
@@ -25,13 +24,16 @@ abstract class BaseViewModel<T, Params> : ViewModel() {
     protected abstract fun getObservable(params: Params): Observable<Result<T>>
 
     fun switchMapDefaultExecute(source: Observable<Params>){
-        execute(source.flatMap { it -> getObservable(it).addErrorHandler() })
+        execute(
+                source.flatMap { it ->
+                    loadingLiveData.postValue(true)
+                    getObservable(it).addErrorHandler()
+                })
     }
 
     fun execute(single: Observable<Result<T>>){
         addDisposable(single
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { loadingLiveData.postValue(true) }
                 .subscribe({ result ->
                     loadingLiveData.postValue(false)
                     if (result.hasError()) errorLiveData.postValue(result.error)

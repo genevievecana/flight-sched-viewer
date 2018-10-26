@@ -3,19 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.view.main.MainActivity"
-    android:fitsSystemWindows="true"
-    >
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/toolbar_search"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         style="@style/MatchParent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             style="@style/MatchParent"
-            android:paddingTop="@dimen/_5sdp"
+            android:paddingTop="@dimen/_8sdp"
             android:clipToPadding="false"
             />
 
