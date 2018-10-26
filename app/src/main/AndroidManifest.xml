@@ -26,6 +26,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${google_map_key}" />
 
+        <activity
+            android:name=".ui.view.details.FlightMapActivity"/>
     </application>
 
 </manifest>

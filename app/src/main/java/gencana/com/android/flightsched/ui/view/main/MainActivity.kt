@@ -7,13 +7,16 @@ import android.widget.Toast
 import com.google.android.material.appbar.AppBarLayout
 import gencana.com.android.domain.model.FlightScheduleParams
 import gencana.com.android.flightsched.R
+import gencana.com.android.flightsched.common.constants.KEY_FLIGHT_DATA
 import gencana.com.android.flightsched.common.extensions.defaultMultiAdapter
+import gencana.com.android.flightsched.common.extensions.startNewActivity
 import gencana.com.android.flightsched.common.model.FlightScheduleModel
 import gencana.com.android.flightsched.common.model.ScheduleResponseModel
 import gencana.com.android.flightsched.common.utils.AppBarListener
 import gencana.com.android.flightsched.ui.adapter.RecyclerMultiAdapter
 import gencana.com.android.flightsched.ui.custom.SearchFlightView
 import gencana.com.android.flightsched.ui.view.base.BaseActivity
+import gencana.com.android.flightsched.ui.view.details.FlightMapActivity
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_search.*
@@ -46,6 +49,7 @@ class MainActivity : BaseActivity<MainViewModel, ScheduleResponseModel>() {
 
         viewModel.addDisposable(recyclerMultiAdapter.getClickObservable<FlightScheduleModel>()
                 ?.subscribe {
+                    startNewActivity<FlightMapActivity>(KEY_FLIGHT_DATA, it)
                 })
 
         viewModel.switchMapDefaultExecute(Observable.create<FlightScheduleParams>{
