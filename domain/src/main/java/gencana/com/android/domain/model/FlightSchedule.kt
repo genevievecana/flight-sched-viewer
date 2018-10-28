@@ -9,7 +9,8 @@ data class ScheduleResponse(
 )
 
 data class ScheduleResource(
-        val schedule: List<FlightSchedule>
+        val schedule: List<FlightSchedule>,
+        val meta: Meta
 )
 
 data class FlightSchedule(

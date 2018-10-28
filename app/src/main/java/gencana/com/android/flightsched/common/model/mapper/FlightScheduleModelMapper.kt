@@ -11,7 +11,7 @@ fun ScheduleResponse.mapToPresentation(): ScheduleResponseModel
         = ScheduleResponseModel(scheduleResource.mapToPresentation())
 
 fun ScheduleResource.mapToPresentation(): ScheduleResourceModel
-        = ScheduleResourceModel(schedule.map{it.mapToPresentation()})
+        = ScheduleResourceModel(schedule.map{it.mapToPresentation()}, meta.mapToPresentation())
 
 fun FlightSchedule.mapToPresentation(): FlightScheduleModel
         = FlightScheduleModel(totalJourney.duration, flight.map { it.mapToPresentation() })

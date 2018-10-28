@@ -11,7 +11,7 @@ fun ScheduleResponseData.mapToDomain(): ScheduleResponse
         = ScheduleResponse(scheduleResource.mapToDomain())
 
 fun ScheduleResourceData.mapToDomain(): ScheduleResource
-        = ScheduleResource(schedule.map{it.mapToDomain()})
+        = ScheduleResource(schedule.map{it.mapToDomain()}, meta.mapToDomain())
 
 fun FlightScheduleData.mapToDomain(): FlightSchedule
         = FlightSchedule(totalJourney.mapToDomain(), flight.map { it.mapToDomain() })

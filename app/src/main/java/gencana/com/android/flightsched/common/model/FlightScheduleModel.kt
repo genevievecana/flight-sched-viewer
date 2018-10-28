@@ -14,7 +14,8 @@ data class ScheduleResponseModel(
 )
 
 data class ScheduleResourceModel(
-        val schedule: List<FlightScheduleModel>
+        val schedule: List<FlightScheduleModel>,
+        val meta: MetaModel
 )
 
 @Parcelize
