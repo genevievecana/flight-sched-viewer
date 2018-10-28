@@ -36,20 +36,28 @@ class FlightMapActivity : BaseActivity<FlightMapViewModel, List<AirportDetailsMo
         get() = R.layout.activity_details
 
     override fun setupActivity(savedInstanceState: Bundle?) {
+        view_placeholder.setMainView(frame_map)
+        view_placeholder.setImageActionListener {getAirportDetails()}
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        getAirportDetails()
+    }
+
+    private fun getAirportDetails(){
         viewModel.getAirportDetails(airportCodesSet)
     }
 
     override fun showLoading(show: Boolean) {
-        progress_bar.show(show)
+        view_placeholder.showLoading(show)
     }
 
     override fun onResponseSuccess(data: List<AirportDetailsModel>) {
+        view_placeholder.hideError()
         drawMap(data)
     }
 
     override fun onError(errorMsg: String?) {
+        view_placeholder.showError(null)
         Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
     }
 
