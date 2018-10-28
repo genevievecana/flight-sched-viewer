@@ -25,6 +25,8 @@ interface BaseView<T> {
 
     }
 
-    fun onBind(data: T)
+    fun onBind(data: T){
+
+    }
 
 }

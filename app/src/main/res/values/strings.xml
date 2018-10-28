@@ -14,4 +14,7 @@
     <string name="search">Search</string>
     <string name="date">Date</string>
     <string name="invalid_field">%s field is invalid.</string>
+    <string name="error_default">Oops! Something went wrong.</string>
+    <string name="error_empty">No data!</string>
+    <string name="error_empty_initial">No data yet! Select airports to get started.</string>
 </resources>

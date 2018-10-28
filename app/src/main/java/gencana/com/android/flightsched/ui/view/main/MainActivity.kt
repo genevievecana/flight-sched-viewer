@@ -8,9 +8,7 @@ import com.google.android.material.appbar.AppBarLayout
 import gencana.com.android.domain.model.FlightScheduleParams
 import gencana.com.android.flightsched.R
 import gencana.com.android.flightsched.common.constants.KEY_FLIGHT_DATA
-import gencana.com.android.flightsched.common.extensions.defaultMultiAdapter
-import gencana.com.android.flightsched.common.extensions.hideKeyboard
-import gencana.com.android.flightsched.common.extensions.startNewActivity
+import gencana.com.android.flightsched.common.extensions.*
 import gencana.com.android.flightsched.common.model.FlightScheduleModel
 import gencana.com.android.flightsched.common.model.ScheduleResponseModel
 import gencana.com.android.flightsched.common.utils.AppBarListener
@@ -33,6 +31,8 @@ class MainActivity : BaseActivity<MainViewModel, ScheduleResponseModel>() {
 
     override fun setupActivity(savedInstanceState: Bundle?) {
         setSupportActionBar(toobar)
+        view_placeholder.setMainView(swipe_refresh)
+        view_placeholder.showEmpty(getString(R.string.error_empty_initial))
         recyclerMultiAdapter = recycler_view.defaultMultiAdapter()
         setupListeners()
     }
@@ -56,6 +56,7 @@ class MainActivity : BaseActivity<MainViewModel, ScheduleResponseModel>() {
         viewModel.switchMapDefaultExecute(Observable.create<FlightScheduleParams>{
             swipe_refresh.apply { setOnRefreshListener { it.onNext(getSearchParams()) } }
             it.setCancellable { swipe_refresh.setOnRefreshListener(null) }
+            view_placeholder.setImageActionListener { it.onNext(getSearchParams()) }
 
             search_flight_view.searchListener = object : SearchFlightView.SearchListener{
                 override fun onSearchClicked(searchParams: FlightScheduleParams) {
@@ -85,16 +86,22 @@ class MainActivity : BaseActivity<MainViewModel, ScheduleResponseModel>() {
     }
 
     override fun showLoading(show: Boolean) {
-        swipe_refresh.isRefreshing = show
+        if (view_placeholder.isVisible()){
+            view_placeholder.showLoading(show)
+        }else{
+            swipe_refresh.isRefreshing = show
+        }
+
     }
 
     override fun onResponseSuccess(data: ScheduleResponseModel) {
+        view_placeholder.hideError()
         recyclerMultiAdapter.addItems(data.scheduleResource.schedule)
     }
 
     override fun onError(errorMsg: String?) {
+        view_placeholder.showError(null)
         Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
-
     }
 
 }

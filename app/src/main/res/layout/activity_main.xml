@@ -7,6 +7,11 @@
     tools:context=".ui.view.main.MainActivity"
     android:fitsSystemWindows="true">
 
+    <gencana.com.android.flightsched.ui.custom.PlaceHolderView
+        android:id="@+id/view_placeholder"
+        style="@style/MatchParent"
+        />
+
     <include layout="@layout/toolbar_search"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
