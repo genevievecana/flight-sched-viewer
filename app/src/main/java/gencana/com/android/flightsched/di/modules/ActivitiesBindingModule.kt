@@ -2,6 +2,7 @@ package gencana.com.android.flightsched.di.modules
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import gencana.com.android.flightsched.ui.view.details.FlightMapActivity
 import gencana.com.android.flightsched.ui.view.main.MainActivity
 
 /**
@@ -13,4 +14,7 @@ interface ActivitiesBindingModule {
 
     @ContributesAndroidInjector(modules = [])
     fun mainActivity(): MainActivity
+
+    @ContributesAndroidInjector(modules = [])
+    fun flightMapActivity(): FlightMapActivity
 }

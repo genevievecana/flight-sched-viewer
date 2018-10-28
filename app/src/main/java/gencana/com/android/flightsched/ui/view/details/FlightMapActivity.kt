@@ -1,9 +1,8 @@
 package gencana.com.android.flightsched.ui.view.details
 
-import android.graphics.Color
-import android.graphics.Point
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -14,39 +13,71 @@ import com.google.android.gms.maps.model.*
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.LatLng
 import gencana.com.android.flightsched.common.constants.KEY_FLIGHT_DATA
+import gencana.com.android.flightsched.common.extensions.show
+import gencana.com.android.flightsched.common.model.AirportDetailsModel
 import gencana.com.android.flightsched.common.model.FlightScheduleModel
+import gencana.com.android.flightsched.ui.view.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_details.*
 
-class FlightMapActivity : AppCompatActivity(), OnMapReadyCallback {
-    private lateinit var mMap: GoogleMap
+class FlightMapActivity : BaseActivity<FlightMapViewModel, List<AirportDetailsModel>>(), OnMapReadyCallback {
 
-    private lateinit var flightScheduleModel: FlightScheduleModel
+    private var mMap: GoogleMap? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
-        flightScheduleModel = intent.getParcelableExtra(KEY_FLIGHT_DATA)
+    private val airportCodesSet by lazy {
+        val airportCodes = LinkedHashSet<String>()
+        intent.getParcelableExtra<FlightScheduleModel>(KEY_FLIGHT_DATA).flight.forEach {
+            airportCodes.add(it.departure.airportCode)
+            airportCodes.add(it.arrival.airportCode)
+        }
+        airportCodes
+    }
+
+    override val layout: Int
+        get() = R.layout.activity_details
+
+    override fun setupActivity(savedInstanceState: Bundle?) {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        viewModel.getAirportDetails(airportCodesSet)
     }
+
+    override fun showLoading(show: Boolean) {
+        progress_bar.show(show)
+    }
+
+    override fun onResponseSuccess(data: List<AirportDetailsModel>) {
+        drawMap(data)
+    }
+
+    override fun onError(errorMsg: String?) {
+        Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
+    }
+
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+    }
 
-        val latLngBounds = listOf(LatLng(-34.0, 151.0), LatLng(2.9321608,122.9007268))
-        val boundBuilder = LatLngBounds.Builder()
-        latLngBounds.forEach {
-            googleMap.addMarker(MarkerOptions().position(it))
-            boundBuilder.include(it)
-        }
+    private fun drawMap(airportList: List<AirportDetailsModel>){
+        val markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_local_airport)
+        val color = ContextCompat.getColor(this, R.color.primaryDark)
 
-        googleMap.addPolyline(PolylineOptions()
-                .width(2f)
-                .color(Color.RED)
-                .addAll(latLngBounds))
+        airportList
+                .map { LatLng(it.coordinate.latitude, it.coordinate.longitude)}
+                .apply { mMap?.addPolyline(PolylineOptions().addAll(this).color(color).width(3f))}
 
-        Point().apply {
-            windowManager.defaultDisplay.getSize(this)
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundBuilder.build(), x, y, 150))
+        LatLngBounds.builder().apply {
+            for (item in airportList) {
+                LatLng(item.coordinate.latitude, item.coordinate.longitude).apply {
+                    val marker = MarkerOptions()
+                            .position(LatLng(item.coordinate.latitude, item.coordinate.longitude))
+                            .title(item.name.airportNameList?.firstOrNull()?.airportName ?: "")
+                            .icon(markerIcon)
+                    mMap?.addMarker(marker)
+                    include(marker.position)
+                }
+            }
+            mMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(this.build(), 120))
         }
 
     }
