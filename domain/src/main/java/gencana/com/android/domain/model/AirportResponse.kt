@@ -10,8 +10,12 @@ data class AirportResponse(
 )
 
 data class AirportResource(
-        val airports: List<AirportDetails>,
+        val airports: List<AirportItem>,
         val meta: Meta
+)
+
+data class AirportItem(
+        val airports: List<AirportDetails>
 )
 
 data class AirportDetails(
@@ -19,7 +23,7 @@ data class AirportDetails(
         val position: Position,
         val cityCode: String,
         val countryCode: String,
-        val nameList: List<Name>
+        val nameList: Names
 )
 
 data class Position(
@@ -29,6 +33,10 @@ data class Position(
 data class Coordinate(
         val latitude: Double,
         val longitude: Double
+)
+
+data class Names(
+        val airportNameList: List<Name>
 )
 
 data class Name(

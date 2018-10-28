@@ -1,17 +1,20 @@
 package gencana.com.android.flightsched.common.model
 
-
 /**
  * Created by Gen Cana on 27/10/2018
  */
 
 data class AirportResponseModel(
-        val airportDetails: AirportResourceModel
+        val airportResource: AirportResourceModel
 )
 
 data class AirportResourceModel(
-        val airports: List<AirportDetailsModel>,
+        val airportDetails: List<AirportItemModel>,
         val meta: MetaModel
+)
+
+data class AirportItemModel(
+        val airports: List<AirportDetailsModel>
 )
 
 data class AirportDetailsModel(
@@ -19,12 +22,16 @@ data class AirportDetailsModel(
         val coordinate: CoordinateModel,
         val cityCode: String,
         val countryCode: String,
-        val name: NameModel?
+        val name: NamesModel
 )
 
 data class CoordinateModel(
         val latitude: Double,
         val longitude: Double
+)
+
+data class NamesModel(
+        val airportNameList: List<NameModel>?
 )
 
 data class NameModel(

@@ -13,12 +13,18 @@ fun AirportResponse.mapToPresentation(): AirportResponseModel
 fun AirportResource.mapToPresentation(): AirportResourceModel
         = AirportResourceModel(airports.map { it.mapToPresentation() }, meta.mapToPresentation())
 
+fun AirportItem.mapToPresentation(): AirportItemModel
+        = AirportItemModel(airports.map { it.mapToPresentation() })
+
 fun AirportDetails.mapToPresentation(): AirportDetailsModel
         = AirportDetailsModel(airportCode, position.mapToPresentation(),
-        cityCode, countryCode, nameList.singleOrNull()?.mapToPresentation())
+        cityCode, countryCode, nameList.mapToPresentation())
 
 fun Position.mapToPresentation(): CoordinateModel
         = CoordinateModel(coordinate.latitude, coordinate.longitude)
+
+fun Names.mapToPresentation(): NamesModel
+        = NamesModel(airportNameList.map { it.mapToPresentation() })
 
 fun Name.mapToPresentation(): NameModel
         = NameModel(airportName)
