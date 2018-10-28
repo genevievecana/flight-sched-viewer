@@ -45,10 +45,12 @@ class FlightScheduleViewHolder(view: View): RecyclerMultiAdapter.BaseViewHolder<
                 subView.onBind(flightModel)
             }
 
+            val childCount = itemView.layout_subflights.childCount
             data.flight.size
-                    .takeIf { it < itemView.layout_subflights.childCount}
+                    .takeIf {
+                        it < childCount}
                     ?.apply {
-                        for (index in this until itemView.layout_subflights.childCount){
+                        for (index in childCount - 1 downTo(this)){
                             itemView.layout_subflights.removeView(itemView.layout_subflights.getChildAt(index))
                         }
                     }

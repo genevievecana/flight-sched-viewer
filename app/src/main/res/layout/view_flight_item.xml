@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/MatchWidth"
     android:paddingTop="@dimen/_10sdp"
+    tools:padding="@dimen/_10sdp"
+    tools:layout_margin="@dimen/_10sdp"
     >
 
     <ImageView
@@ -19,8 +21,7 @@
     <TextView
         android:id="@+id/txt_flight_number"
         style="@style/Text.Item.Reg"
-        android:layout_width="0dp"
-        tools:text="LH158"
+        tools:text="AA6020"
         android:layout_marginTop="@dimen/_2sdp"
         app:layout_constraintTop_toBottomOf="@id/icon"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +31,7 @@
         android:id="@+id/guide"
         style="@style/WrapContent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent=".24"
+        app:layout_constraintGuide_percent=".22"
         />
 
     <View

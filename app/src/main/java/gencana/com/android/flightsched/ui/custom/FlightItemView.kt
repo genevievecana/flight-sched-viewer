@@ -28,8 +28,12 @@ class FlightItemView @JvmOverloads constructor(
         view.txt_flight_time.text = String.format("%s - %s",
                 formatDefaultToTime24(data.departure.scheduledTimeLocal),
                 formatDefaultToTime24(data.arrival.scheduledTimeLocal))
-        view.txt_terminal.text = String.format(context.getString(R.string.departure_terminal),
-                data.departure.terminalName)
+
+        view.txt_terminal.text = data.departure.terminalName
+                        ?.let { String.format(context.getString(R.string.departure_terminal), it) }
+                            ?: data.arrival.terminalName
+                                ?.let { String.format(context.getString(R.string.arrival_terminal), it) }
+                                    ?: context.getString(R.string.terminal_unknown)
     }
 
     override fun getLayout(): Int = R.layout.view_flight_item
