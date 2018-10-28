@@ -12,6 +12,15 @@ ext {
 }
 
 android {
+    signingConfigs {
+        release {
+            keyAlias config.privateProperties.KEYSTORE_ALIAS
+            keyPassword config.privateProperties.KEYSTORE_PASSWORD
+            storeFile file(config.privateProperties.KEYSTORE_PATH)
+            storePassword config.privateProperties.KEYSTORE_STORE_PASSWORD
+        }
+    }
+
     defaultConfig {
         manifestPlaceholders = [google_map_key: config.privateProperties.GOOGLE_MAPS_KEY]
     }

@@ -14,14 +14,17 @@ android {
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    //used same keystore and applicationId for simplicity
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
             debuggable true
+            signingConfig signingConfigs.release
         }
         release {
             minifyEnabled false
             debuggable false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
