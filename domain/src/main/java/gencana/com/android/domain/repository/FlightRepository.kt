@@ -1,5 +1,6 @@
 package gencana.com.android.domain.repository
 
+import gencana.com.android.domain.model.AirportResponse
 import gencana.com.android.domain.model.ScheduleResponse
 import io.reactivex.Single
 
@@ -11,5 +12,8 @@ interface FlightRepository {
 
     fun getFlightSchedules(origin: String, destination: String, fromDateTime: String)
             : Single<ScheduleResponse>
+
+    fun getAirportDetails(airportCode: String)
+            : Single<AirportResponse>
 
 }

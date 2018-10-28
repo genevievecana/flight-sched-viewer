@@ -1,6 +1,7 @@
 package gencana.com.android.data.source.remote
 
 import gencana.com.android.data.BuildConfig
+import gencana.com.android.data.entity.AirportResponseData
 import gencana.com.android.data.entity.ScheduleResponseData
 import gencana.com.android.data.entity.Token
 import io.reactivex.Single
@@ -27,4 +28,9 @@ interface FlightApiService {
             @Path(FIELD_DESTINATION) destination: String,
             @Path(FIELD_DATE) fromDateTime: String
     ): Single<ScheduleResponseData>
+
+    @GET(ENDPOINT_AIRPORT_DETAILS)
+    fun getAirportDetails(
+            @Path(FIELD_AIRPORT_CODE) airportCode: String
+    ): Single<AirportResponseData>
 }

@@ -1,6 +1,5 @@
 package gencana.com.android.domain.interactor
 
-import gencana.com.android.domain.model.Params
 import io.reactivex.Single
 import java.security.InvalidParameterException
 
@@ -8,7 +7,7 @@ import java.security.InvalidParameterException
  * Created by Gen Cana on 20/10/2018
  */
 
-abstract class  UseCase<T, P: Params?>{
+abstract class  UseCase<T, P>{
 
     protected abstract fun registerObservable(params: P): Single<T>
 
@@ -19,8 +18,6 @@ abstract class  UseCase<T, P: Params?>{
             registerObservable(params)
     }
 
-    open fun validateParams(params: P): Boolean{
-        return params == null || params.isValid()
-    }
+    abstract fun validateParams(params: P): Boolean
 
 }
