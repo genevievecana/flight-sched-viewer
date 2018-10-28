@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import gencana.com.android.flightsched.common.viewmodel.ViewModelFactory
 import gencana.com.android.flightsched.common.viewmodel.ViewModelKey
+import gencana.com.android.flightsched.ui.view.details.FlightMapViewModel
 import gencana.com.android.flightsched.ui.view.main.MainViewModel
 
 /**
@@ -23,4 +24,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FlightMapViewModel::class)
+    fun bindFlightMapViewModel(flightMapViewModel: FlightMapViewModel): ViewModel
 }
