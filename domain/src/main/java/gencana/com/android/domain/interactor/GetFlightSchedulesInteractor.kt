@@ -17,6 +17,7 @@ class GetFlightSchedulesInteractor
 
     override fun validateParams(params: FlightScheduleParams): Boolean
             = !arrayOf(params.origin, params.destination, params.fromDateTime).hasNullOrEmpty()
+                && params.origin?.length == 3 && params.destination?.length == 3
 
     override fun registerObservable(params: FlightScheduleParams): Single<ScheduleResponse>
             = flightRepository.getFlightSchedules(params.origin!!, params.destination!!, params.fromDateTime!!)

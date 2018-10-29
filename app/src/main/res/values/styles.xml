@@ -8,6 +8,7 @@
         <item name="colorAccent">@android:color/white</item>
         <item name="colorControlNormal">@android:color/white</item>
         <item name="colorError">#dedede</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="WrapContent">
@@ -84,6 +85,10 @@
         <item name="android:textSize">0sp</item>
         <item name="android:gravity">top</item>
         <item name="android:layout_gravity">top</item>
+    </style>
+
+    <style name="Autocomplete" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:background">@android:color/white</item>
     </style>
 
 </resources>
