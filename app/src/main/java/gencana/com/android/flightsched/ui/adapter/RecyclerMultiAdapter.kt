@@ -57,7 +57,7 @@ class RecyclerMultiAdapter<E: ViewHolderInterface>(
     }
 
     //TODO: replace paging
-    fun addItems(items: List<E>, isClear: Boolean = false){
+    fun addItems(items: List<E>, isClear: Boolean = true){
         if (isClear) {
             itemList.clear()
         }

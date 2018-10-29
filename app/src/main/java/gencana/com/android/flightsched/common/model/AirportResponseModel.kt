@@ -6,7 +6,12 @@ package gencana.com.android.flightsched.common.model
 
 data class AirportResponseModel(
         val airportResource: AirportResourceModel
-)
+): ResponseInterface<AirportResourceModel>{
+
+    override fun getData(): AirportResourceModel
+            = airportResource
+
+}
 
 data class AirportResourceModel(
         val airportDetails: List<AirportItemModel>,

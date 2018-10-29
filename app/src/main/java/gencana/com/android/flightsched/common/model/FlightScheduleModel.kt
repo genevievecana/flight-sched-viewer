@@ -11,7 +11,10 @@ import kotlinx.android.parcel.Parcelize
 
 data class ScheduleResponseModel(
         val scheduleResource: ScheduleResourceModel
-)
+): ResponseInterface<ScheduleResourceModel> {
+
+    override fun getData(): ScheduleResourceModel = scheduleResource
+}
 
 data class ScheduleResourceModel(
         val schedule: List<FlightScheduleModel>,

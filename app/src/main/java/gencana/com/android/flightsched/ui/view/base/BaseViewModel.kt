@@ -31,15 +31,15 @@ abstract class BaseViewModel<T, Params> : ViewModel() {
                 })
     }
 
-    fun execute(single: Observable<Result<T>>){
+    fun execute(single: Observable<Result<T>>, updateLoading: Boolean = true){
         addDisposable(single
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    loadingLiveData.postValue(false)
+                    if (updateLoading) loadingLiveData.postValue(false)
                     if (result.hasError()) errorLiveData.postValue(result.error)
                     else responseLiveData.postValue(result.data)
                 }, { throwable ->
-                    loadingLiveData.postValue(false)
+                    if (updateLoading)loadingLiveData.postValue(false)
                     errorLiveData.postValue(throwable.message)
                 })
         )

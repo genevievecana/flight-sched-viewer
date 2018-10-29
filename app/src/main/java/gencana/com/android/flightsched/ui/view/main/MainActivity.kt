@@ -9,42 +9,44 @@ import gencana.com.android.domain.model.FlightScheduleParams
 import gencana.com.android.flightsched.R
 import gencana.com.android.flightsched.common.constants.KEY_FLIGHT_DATA
 import gencana.com.android.flightsched.common.extensions.*
-import gencana.com.android.flightsched.common.model.FlightScheduleModel
-import gencana.com.android.flightsched.common.model.ScheduleResponseModel
+import gencana.com.android.flightsched.common.model.*
 import gencana.com.android.flightsched.common.utils.AppBarListener
 import gencana.com.android.flightsched.ui.adapter.RecyclerMultiAdapter
 import gencana.com.android.flightsched.ui.custom.SearchFlightView
 import gencana.com.android.flightsched.ui.view.base.BaseActivity
 import gencana.com.android.flightsched.ui.view.details.FlightMapActivity
+import gencana.com.android.flightsched.common.model.FlightScheduleModel
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_search.*
 
-class MainActivity : BaseActivity<MainViewModel, ScheduleResponseModel>() {
+class MainActivity : BaseActivity<MainViewModel, ResponseInterface<*>>() {
 
     private lateinit var recyclerMultiAdapter: RecyclerMultiAdapter<FlightScheduleModel>
-
     private var menuSearch: CheckBox? = null
+
 
     override val layout: Int
         get() = R.layout.activity_main
 
     override fun setupActivity(savedInstanceState: Bundle?) {
+        setupViews()
+        setupListeners()
+        viewModel.getAirportList()
+    }
+
+    private fun setupViews(){
         setSupportActionBar(toobar)
         view_placeholder.setMainView(swipe_refresh)
         view_placeholder.showEmpty(getString(R.string.error_empty_initial))
         recyclerMultiAdapter = recycler_view.defaultMultiAdapter()
-        setupListeners()
     }
 
     private fun setupListeners(){
         app_bar.addOnOffsetChangedListener(object : AppBarListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
-                state.takeIf {
-                    state != State.IDLE
-                }?.apply {
-                    menuSearch?.isChecked = this == State.EXPANDED
-                }
+                state.takeIf { state != State.IDLE }
+                        ?.apply { menuSearch?.isChecked = this == State.EXPANDED }
             }
         })
 
@@ -94,9 +96,25 @@ class MainActivity : BaseActivity<MainViewModel, ScheduleResponseModel>() {
 
     }
 
-    override fun onResponseSuccess(data: ScheduleResponseModel) {
+    override fun onResponseSuccess(data: ResponseInterface<*>) {
+        when(data){
+            is ScheduleResponseModel -> onScheduleResponse(data)
+            is AirportResponseModel -> onAirportListResponse(data)
+        }
+    }
+
+    private fun onScheduleResponse(data: ScheduleResponseModel){
         view_placeholder.hideError()
         recyclerMultiAdapter.addItems(data.scheduleResource.schedule)
+    }
+
+    private fun onAirportListResponse(data: AirportResponseModel){
+        data.airportResource.airportDetails
+                .flatMap { it.airports }
+                .map { "${it.airportCode} - ${it.name.airportNameList?.firstOrNull()?.airportName ?: ""}"}
+                .apply {
+                    search_flight_view.addAutoCompleteList(this)
+                }
     }
 
     override fun onError(errorMsg: String?) {

@@ -5,6 +5,7 @@ package gencana.com.android.data.source.remote
  */
 
 //parameters
+const val FIELD_LIMIT = "limit"
 const val FIELD_ORIGIN = "origin"
 const val FIELD_DESTINATION = "destination"
 const val FIELD_DATE = "fromDateTime"

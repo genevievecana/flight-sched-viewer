@@ -26,11 +26,13 @@ interface FlightApiService {
     fun getFlightSchedules(
             @Path(FIELD_ORIGIN) origin: String,
             @Path(FIELD_DESTINATION) destination: String,
-            @Path(FIELD_DATE) fromDateTime: String
+            @Path(FIELD_DATE) fromDateTime: String,
+            @Query(FIELD_LIMIT) limit: Int = 40
     ): Single<ScheduleResponseData>
 
     @GET(ENDPOINT_AIRPORT_DETAILS)
     fun getAirportDetails(
-            @Path(FIELD_AIRPORT_CODE) airportCode: String
+            @Path(FIELD_AIRPORT_CODE) airportCode: String,
+            @Query(FIELD_LIMIT) limit: Int = 100
     ): Single<AirportResponseData>
 }
