@@ -23,7 +23,7 @@ class UseCaseTest: BaseTestClass(){
     @Test
     fun `test valid usecase`() {
         val testObserver = TestObserver<String>()
-        useCase.getObservable(TestParams("BCN"))
+        useCase.getObservable("BCN")
                 .subscribe(testObserver)
 
         assertBuilder.that(testObserver.assertResult(TEST_STRING))
@@ -32,42 +32,35 @@ class UseCaseTest: BaseTestClass(){
     @Test
     fun `test invalid usecase`() {
         val testObserver = TestObserver<String>()
-        useCase.getObservable(TestParams(null)).subscribe(testObserver)
+        useCase.getObservable(null).subscribe(testObserver)
         assertBuilder.that(testObserver.assertError(InvalidParameterException::class.java))
     }
 
     @Test
     fun `test valid params`() {
-        val isValid = useCase.validateParams(TestParams("name"))
+        val isValid = useCase.validateParams("name")
         assertBuilder.that(isValid).isTrue()
     }
 
     @Test
     fun `test invalid params`() {
-        var isValid = useCase.validateParams(TestParams(""))
+        var isValid = useCase.validateParams("")
         assertBuilder.that(isValid).isFalse()
 
-        isValid = useCase.validateParams(TestParams(null))
+        isValid = useCase.validateParams(null)
         assertBuilder.that(isValid).isFalse()
-    }
-
-    @Test
-    fun `test nullable params`() {
-        val isValid = useCase.validateParams(null)
-        assertBuilder.that(isValid).isTrue()
     }
 
     private class UseCaseClass
-        : UseCase<String, TestParams?>(){
+        : UseCase<String, String?>(){
+        override fun validateParams(params: String?): Boolean {
+            return !params.isNullOrEmpty()
+        }
 
-        override fun registerObservable(params: TestParams?): Single<String> {
+        override fun registerObservable(params: String?): Single<String> {
             return Single.just(TEST_STRING)
         }
     }
 
-    data class TestParams(var name: String?): Params{
-        override fun isValid(): Boolean
-                = !name.isNullOrEmpty()
-    }
 
 }

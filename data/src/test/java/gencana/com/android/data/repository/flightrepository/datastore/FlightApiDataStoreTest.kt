@@ -8,6 +8,7 @@ import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
@@ -32,7 +33,7 @@ class FlightApiDataStoreTest: BaseTestClass(){
 
     override fun setup() {
         apiDataStore = FlightApiDataStore(flightApiService)
-        `when`(flightApiService.getFlightSchedules(anyString(), anyString(), anyString()))
+        `when`(flightApiService.getFlightSchedules(anyString(), anyString(), anyString(), anyInt()))
                 .thenReturn(Single.just(scheduleResource))
     }
 
@@ -43,7 +44,7 @@ class FlightApiDataStoreTest: BaseTestClass(){
                 .subscribe(testObserver)
 
         verify(flightApiService)
-                .getFlightSchedules(anyString(), anyString(), anyString())
+                .getFlightSchedules(anyString(), anyString(), anyString(), anyInt())
         assertBuilder.that(testObserver.assertResult(scheduleResource))
         verifyNoMoreInteractions(flightApiService)
     }

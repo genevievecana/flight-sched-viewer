@@ -21,7 +21,7 @@ class GetFlightSchedulesInteractorTest: BaseTestClass() {
     @Mock
     private lateinit var flightRepository: FlightRepository
 
-    private var params = FlightScheduleParams("a", "b", "c")
+    private var params = FlightScheduleParams("abc", "bcd", "c")
 
     @Mock
     private lateinit var scheduleResource: ScheduleResponse
@@ -74,13 +74,13 @@ class GetFlightSchedulesInteractorTest: BaseTestClass() {
         params.origin = null
         assertBuilder.that(flightInteractor.validateParams(params)).isFalse()
 
-        params.origin = "a"
+        params.origin = "abc"
         assertBuilder.that(flightInteractor.validateParams(params)).isTrue()
 
         params.destination = null
         assertBuilder.that(flightInteractor.validateParams(params)).isFalse()
 
-        params.destination = "a"
+        params.destination = "abc"
         assertBuilder.that(flightInteractor.validateParams(params)).isTrue()
 
         params.fromDateTime = null

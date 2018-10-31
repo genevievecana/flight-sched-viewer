@@ -5,7 +5,9 @@ import gencana.com.android.data.entity.ScheduleResourceData
 import gencana.com.android.data.entity.ScheduleResponseData
 import gencana.com.android.data.repository.flightrepository.datastore.FlightDataStore
 import gencana.com.android.data.repository.flightrepository.datastore.FlightDataStoreFactory
+import gencana.com.android.domain.model.ScheduleResponse
 import io.reactivex.Single
+import io.reactivex.observers.TestObserver
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,9 +33,13 @@ class FlightDataRepositoryTest: BaseTestClass() {
     @Mock
     private lateinit var scheduleResourceData: ScheduleResourceData
 
+    private val testObserver by lazy {
+        TestObserver<ScheduleResponse>()
+    }
+
     override fun setup() {
         dataRepository = FlightDataRepository(dataStoreFactory)
-        `when`(dataStoreFactory.create()).thenReturn(dataStore)
+        `when`(dataStoreFactory.create(false)).thenReturn(dataStore)
         `when`(dataStore.getFlightSchedules(anyString(), anyString(), anyString()))
                 .thenReturn(Single.just(ScheduleResponseData(scheduleResourceData)))
     }
@@ -42,9 +48,9 @@ class FlightDataRepositoryTest: BaseTestClass() {
     fun `test valid`(){
         dataRepository
                 .getFlightSchedules("a", "b", "c")
-                .subscribe()
+                .subscribe(testObserver)
 
-        verify(dataStoreFactory).create()
+        verify(dataStoreFactory).create(false)
         verify(dataStore).getFlightSchedules(anyString(), anyString(), anyString())
 
         verifyNoMoreInteractions(dataStoreFactory)
