@@ -26,10 +26,9 @@ class MainViewModel @Inject constructor(
             .map{ Result(it.mapToPresentation()) } as Observable<Result<ResponseInterface<*>>>
 
     fun getAirportList() {
-         execute(airportListDetailsInteractor.getObservable(null)
+         execute(airportListDetailsInteractor.getObservable(Any())
                 .toObservable()
-                .map { Result(it.mapToPresentation()) } as Observable<Result<ResponseInterface<*>>>,
-                 false)
+                .map { Result(it.mapToPresentation()) } as Observable<Result<ResponseInterface<*>>>)
     }
 
 }

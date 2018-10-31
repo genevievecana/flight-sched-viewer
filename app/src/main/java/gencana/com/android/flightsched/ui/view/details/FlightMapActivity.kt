@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.*
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.LatLng
 import gencana.com.android.flightsched.common.constants.KEY_FLIGHT_DATA
+import gencana.com.android.flightsched.common.extensions.createAndSubscribe
 import gencana.com.android.flightsched.common.extensions.show
 import gencana.com.android.flightsched.common.model.AirportDetailsModel
 import gencana.com.android.flightsched.common.model.FlightScheduleModel
@@ -85,7 +86,11 @@ class FlightMapActivity : BaseActivity<FlightMapViewModel, List<AirportDetailsMo
                     include(marker.position)
                 }
             }
-            mMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(this.build(), 120))
+            viewModel.compositeDisposable.createAndSubscribe<Boolean>({
+                mMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(this.build(), 120))
+            }, null, 1000)
+
+
         }
 
     }
