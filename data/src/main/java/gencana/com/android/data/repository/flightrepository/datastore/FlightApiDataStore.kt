@@ -16,7 +16,7 @@ class FlightApiDataStore(private val flightApiService: FlightApiService) : Fligh
 
     override fun getAirportDetails(airportCode: String)
             : Single<AirportResponseData>
-            = Single.just(null)
+            = flightApiService.getAirportDetails(airportCode)
 
     override fun getFlightSchedules(origin: String, destination: String, fromDateTime: String)
             : Single<ScheduleResponseData>
