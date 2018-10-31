@@ -1,6 +1,6 @@
 # flight-sched-viewer
 
-This test project is still in progress
+This is a test project that can fetch Lufthansa airline schedules
 
 1. Kotlin
 2. MVVM
@@ -9,3 +9,5 @@ This test project is still in progress
 5. Jetpack/Architecture Components
 6. Dagger
 7. Rx
+
+![Preview](preview.gif)
