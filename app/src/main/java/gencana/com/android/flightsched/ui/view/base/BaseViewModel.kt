@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import gencana.com.android.flightsched.common.extensions.addErrorHandler
 import gencana.com.android.flightsched.common.model.Result
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.Scheduler
 import io.reactivex.disposables.Disposable
 import io.reactivex.disposables.CompositeDisposable
 
@@ -14,39 +14,37 @@ import io.reactivex.disposables.CompositeDisposable
  */
 
 
-abstract class BaseViewModel<T, Params> : ViewModel() {
+abstract class BaseViewModel<T, Params>(private val io: Scheduler) : ViewModel() {
 
-    private val compositeDisposable by lazy { CompositeDisposable() }
+    val compositeDisposable by lazy { CompositeDisposable() }
     val responseLiveData by lazy { MutableLiveData<T>() }
     val loadingLiveData by lazy { MutableLiveData<Boolean>() }
     val errorLiveData by lazy { MutableLiveData<String>() }
 
-    protected abstract fun getObservable(params: Params): Observable<Result<T>>
+    abstract fun getObservable(params: Params): Observable<Result<T>>
 
-    fun switchMapDefaultExecute(source: Observable<Params>){
-        execute(
-                source.flatMap { it ->
-                    loadingLiveData.postValue(true)
-                    getObservable(it).addErrorHandler()
-                })
+    fun execute(params: Params, showError: Boolean = true){
+        execute(getObservable(params), showError)
     }
 
-    fun execute(single: Observable<Result<T>>, updateLoading: Boolean = true){
+    fun execute(single: Observable<Result<T>>, showError: Boolean = true){
+        if (showError) single.addErrorHandler()
         addDisposable(single
-                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe{loadingLiveData.postValue(true)}
+                .doAfterTerminate{loadingLiveData.postValue(false)}
+                .observeOn(io)
                 .subscribe({ result ->
-                    if (updateLoading) loadingLiveData.postValue(false)
                     if (result.hasError()) errorLiveData.postValue(result.error)
                     else responseLiveData.postValue(result.data)
                 }, { throwable ->
-                    if (updateLoading)loadingLiveData.postValue(false)
-                    errorLiveData.postValue(throwable.message)
+                    if (showError)errorLiveData.postValue(throwable.message)
                 })
         )
     }
 
     fun addDisposable(disposable: Disposable?){
-        disposable?.let { compositeDisposable.add(it) }
+        disposable
+                ?.let { compositeDisposable.add(it) }
     }
 
     override fun onCleared() {

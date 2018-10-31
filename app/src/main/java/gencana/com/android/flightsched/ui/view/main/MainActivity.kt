@@ -16,7 +16,6 @@ import gencana.com.android.flightsched.ui.custom.SearchFlightView
 import gencana.com.android.flightsched.ui.view.base.BaseActivity
 import gencana.com.android.flightsched.ui.view.details.FlightMapActivity
 import gencana.com.android.flightsched.common.model.FlightScheduleModel
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_search.*
 
@@ -55,24 +54,24 @@ class MainActivity : BaseActivity<MainViewModel, ResponseInterface<*>>() {
                     startNewActivity<FlightMapActivity>(KEY_FLIGHT_DATA, it)
                 })
 
-        viewModel.switchMapDefaultExecute(Observable.create<FlightScheduleParams>{
-            swipe_refresh.apply { setOnRefreshListener { it.onNext(getSearchParams()) } }
-            it.setCancellable { swipe_refresh.setOnRefreshListener(null) }
-            view_placeholder.setImageActionListener { it.onNext(getSearchParams()) }
+            swipe_refresh.apply { setOnRefreshListener { getFlightSchedules() } }
+            view_placeholder.setImageActionListener { getFlightSchedules() }
 
             search_flight_view.searchListener = object : SearchFlightView.SearchListener{
                 override fun onSearchClicked(searchParams: FlightScheduleParams) {
                     hideKeyboard()
                     app_bar.setExpanded(false)
-                    it.onNext(searchParams)
+                    getFlightSchedules()
                 }
             }
-        })
 
     }
 
-    private fun getSearchParams(): FlightScheduleParams{
-        return search_flight_view.getSearchParameters()
+    private fun getFlightSchedules(){
+        search_flight_view.getSearchParameters()
+                ?.let {
+                    viewModel.execute(it)
+                }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -115,6 +114,10 @@ class MainActivity : BaseActivity<MainViewModel, ResponseInterface<*>>() {
                 .apply {
                     search_flight_view.addAutoCompleteList(this)
                 }
+
+        viewModel.compositeDisposable.createAndSubscribe<Boolean>(
+                { menuSearch?.isChecked = true }, null,1000)
+
     }
 
     override fun onError(errorMsg: String?) {

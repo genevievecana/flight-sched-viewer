@@ -5,6 +5,7 @@ import gencana.com.android.flightsched.common.model.*
 import gencana.com.android.flightsched.common.model.mapper.mapToPresentation
 import gencana.com.android.flightsched.ui.view.base.BaseViewModel
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import javax.inject.Inject
 
 
@@ -13,14 +14,14 @@ import javax.inject.Inject
  */
 class FlightMapViewModel
 @Inject constructor(
-        private val airportDetailsInteractor: GetAirportDetailsInteractor)
-    : BaseViewModel<List<AirportDetailsModel>, String>() {
+        private val airportDetailsInteractor: GetAirportDetailsInteractor,
+        io: Scheduler
+) : BaseViewModel<List<AirportDetailsModel>, String>(io) {
 
     override fun getObservable(params: String): Observable<Result<List<AirportDetailsModel>>>
             = Observable.empty()
 
     fun getAirportDetails(airportCodeList: LinkedHashSet<String>){
-        loadingLiveData.postValue(true)
         execute(Observable.zip(airportCodeList.map { getAirportObservable(it) }) { t ->
             Result(t.map {
                 it as AirportResponseModel

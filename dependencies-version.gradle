@@ -21,7 +21,7 @@ ext.versions = [
         'kotshi'            :   '1.0.5',
         'androidXArchi'     :   '2.0.0',
         'rxjava'            :   '2.2.2',
-        'rxandroid'         :   '2.1.0',
+        'rxandroid'         :   '2.0.2',
         'rxkotlin'          :   '2.3.0',
         'javaxAnnotation'   :   '1.0',
         'javaxInject'       :   '1',

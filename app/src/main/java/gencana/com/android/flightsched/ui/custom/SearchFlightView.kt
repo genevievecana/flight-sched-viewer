@@ -37,9 +37,9 @@ class SearchFlightView @JvmOverloads constructor(
         auto_search_from.setAdapter(autoCompleteAdapter)
         auto_search_to.setAdapter(autoCompleteAdapter)
         view.btn_search.setOnClickListener {
-           if (validateFields()){
-                searchListener?.onSearchClicked(getSearchParameters())
-           }
+            getSearchParameters()
+                    ?.let { it1 -> searchListener?.onSearchClicked(it1) }
+
         }
         auto_search_from.setOnItemClickListener { parent, view, position, id ->
             auto_search_from.setText((parent.getItemAtPosition(position) as String).substring(0, 3))
@@ -58,9 +58,10 @@ class SearchFlightView @JvmOverloads constructor(
 
     override fun getLayout(): Int = R.layout.view_search_flight
 
-    fun getSearchParameters(): FlightScheduleParams{
-        return FlightScheduleParams(view.auto_search_from.text.toString(),
+    fun getSearchParameters(): FlightScheduleParams?{
+        return if (validateFields()) FlightScheduleParams(view.auto_search_from.text.toString(),
                 view.auto_search_to.text.toString(), getCurrentDefaultDate())
+        else null
     }
 
     private fun validateFields(): Boolean{
