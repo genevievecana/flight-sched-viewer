@@ -78,7 +78,11 @@ ext{
     test = Group {
         testImplementation deps.test.junit
         androidTestImplementation deps.test.testRunner
+        androidTestImplementation deps.test.rules
+        androidTestImplementation deps.test.xCore
+        androidTestImplementation deps.test.xJUnit
         androidTestImplementation deps.test.espresso
+        androidTestImplementation deps.test.barista
         testImplementation deps.test.mockito
         testImplementation deps.test.archCoreTesting
         testImplementation deps.test.googleTruth

@@ -65,6 +65,13 @@ ext.deps = [
         'test'      : [
                 'junit'             :   "junit:junit:$versions.junit",
                 'testRunner'        :   "androidx.test:runner:$versions.testRunner",
+                'rules'             :   "androidx.test:rules:$versions.testRunner",
+
+                'xCore'             :   "androidx.test:core:$versions.androidXTest",
+                'xJUnit'            :   "androidx.test.ext:junit:$versions.androidXTest",
+
+                'barista'           :   "com.schibsted.spain:barista:$versions.barista",
+
                 'espresso'          :   "androidx.test.espresso:espresso-core:$versions.espresso",
                 'mockito'           :   "org.mockito:mockito-core:$versions.mockito",
                 'archCoreTesting'   :   "androidx.arch.core:core-testing:$versions.androidXArchi",
