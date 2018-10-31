@@ -9,6 +9,7 @@ import gencana.com.android.data.di.DataModule
 import gencana.com.android.flightsched.application.MyApplication
 import gencana.com.android.flightsched.di.modules.ActivitiesBindingModule
 import gencana.com.android.flightsched.di.modules.AppModule
+import gencana.com.android.flightsched.di.modules.MockModule
 import javax.inject.Singleton
 
 /**
@@ -20,7 +21,8 @@ import javax.inject.Singleton
     AndroidInjectionModule::class,
     AppModule::class,
     ActivitiesBindingModule::class,
-    DataModule::class
+    DataModule::class,
+    MockModule::class
 ])
 
 interface AppComponent: AndroidInjector<MyApplication> {

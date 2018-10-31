@@ -1,4 +1,4 @@
-package gencana.com.android.domain
+package gencana.com.android.domain.common
 
 /**
  * Created by Gen Cana on 20/10/2018

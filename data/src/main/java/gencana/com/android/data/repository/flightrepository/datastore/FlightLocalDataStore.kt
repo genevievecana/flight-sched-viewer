@@ -1,18 +1,19 @@
 package gencana.com.android.data.repository.flightrepository.datastore
 
+import com.squareup.moshi.Moshi
 import gencana.com.android.data.entity.AirportResponseData
 import gencana.com.android.data.entity.ScheduleResponseData
-import gencana.com.android.data.source.remote.FlightApiService
+import gencana.com.android.data.source.local.getAirportList
 import io.reactivex.Single
 
 /**
- * Created by Gen Cana on 20/10/2018
+ * Created by Gen Cana on 31/10/2018
  */
 
-class FlightApiDataStore(private val flightApiService: FlightApiService) : FlightDataStore{
+class FlightLocalDataStore(private val moshi: Moshi) : FlightDataStore{
 
     override fun getAirportDetailsList(): Single<AirportResponseData>
-            = Single.just(null)
+            = Single.just(getAirportList(moshi))
 
     override fun getAirportDetails(airportCode: String)
             : Single<AirportResponseData>
@@ -20,6 +21,5 @@ class FlightApiDataStore(private val flightApiService: FlightApiService) : Fligh
 
     override fun getFlightSchedules(origin: String, destination: String, fromDateTime: String)
             : Single<ScheduleResponseData>
-            = flightApiService.getFlightSchedules(origin, destination, fromDateTime)
-
+            = Single.just(null)
 }

@@ -1,7 +1,9 @@
 package gencana.com.android.data.repository.flightrepository.datastore
 
+import com.squareup.moshi.Moshi
 import gencana.com.android.data.source.remote.FlightApiService
 import javax.inject.Inject
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -10,10 +12,17 @@ import javax.inject.Singleton
 
 @Singleton
 class FlightDataStoreFactory @Inject constructor(
-        private val apiService: FlightApiService){
+        private val moshi: Moshi,
+        private val apiService: FlightApiService,
+        @Named("IS_MOCK") private val isMock: Boolean){
 
-    fun create(): FlightDataStore{
-        return FlightApiDataStore(apiService)
+    fun create(isLocal: Boolean): FlightDataStore{
+        return if (isMock){
+            FlightMockDataStore(moshi)
+        }else{
+            if (isLocal) FlightLocalDataStore(moshi)
+            else FlightApiDataStore(apiService)
+        }
     }
 
 

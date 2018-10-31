@@ -16,4 +16,7 @@ interface FlightRepository {
     fun getAirportDetails(airportCode: String)
             : Single<AirportResponse>
 
+    fun getAirportDetailsList()
+            : Single<AirportResponse>
+
 }

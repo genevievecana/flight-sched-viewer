@@ -18,12 +18,13 @@ class FlightDataRepository @Inject constructor(
         private val dataStoreFactory: FlightDataStoreFactory
 ): FlightRepository {
 
-    private val dataStore by lazy {
-        dataStoreFactory.create()
-    }
+    override fun getAirportDetailsList(): Single<AirportResponse>
+            = dataStoreFactory.create(true)
+            .getAirportDetailsList()
+            .map { it.mapToDomain() }
 
     override fun getAirportDetails(airportCode: String): Single<AirportResponse>
-        = dataStore
+            = dataStoreFactory.create(false)
             .getAirportDetails(airportCode)
             .map { it.mapToDomain() }
 
@@ -32,7 +33,7 @@ class FlightDataRepository @Inject constructor(
             origin: String, destination: String,
             fromDateTime: String
     ): Single<ScheduleResponse>
-        = dataStore
+            = dataStoreFactory.create(false)
             .getFlightSchedules(origin, destination, fromDateTime)
             .map { it.mapToDomain() }
 

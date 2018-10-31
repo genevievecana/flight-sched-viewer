@@ -1,6 +1,6 @@
 package gencana.com.android.domain.model
 
-import gencana.com.android.domain.hasNullOrEmpty
+import gencana.com.android.domain.common.hasNullOrEmpty
 
 /**
  * Created by Gen Cana on 20/10/2018

@@ -15,4 +15,7 @@ interface FlightDataStore{
 
     fun getAirportDetails(airportCode: String)
             : Single<AirportResponseData>
+
+    fun getAirportDetailsList()
+            : Single<AirportResponseData>
 }

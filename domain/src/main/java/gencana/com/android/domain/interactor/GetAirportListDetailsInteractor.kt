@@ -11,11 +11,11 @@ import javax.inject.Inject
 class GetAirportListDetailsInteractor
 @Inject constructor(
         private val flightRepository: FlightRepository
-): UseCase<AirportResponse, String?>(){
+): UseCase<AirportResponse, Any>(){
 
-    override fun validateParams(params: String?): Boolean
+    override fun validateParams(params: Any): Boolean
         = true
 
-    override fun registerObservable(params: String?): Single<AirportResponse>
-            = flightRepository.getAirportDetails("")
+    override fun registerObservable(params: Any): Single<AirportResponse>
+            = flightRepository.getAirportDetailsList()
 }

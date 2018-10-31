@@ -1,6 +1,6 @@
 package gencana.com.android.domain.interactor
 
-import gencana.com.android.domain.hasNullOrEmpty
+import gencana.com.android.domain.common.hasNullOrEmpty
 import gencana.com.android.domain.model.FlightScheduleParams
 import gencana.com.android.domain.model.ScheduleResponse
 import gencana.com.android.domain.repository.FlightRepository
