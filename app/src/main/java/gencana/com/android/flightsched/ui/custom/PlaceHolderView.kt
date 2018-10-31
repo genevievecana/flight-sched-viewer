@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.Toast
 import gencana.com.android.flightsched.R
+import gencana.com.android.flightsched.common.extensions.invisible
 import gencana.com.android.flightsched.common.extensions.show
 import kotlinx.android.synthetic.main.view_placeholder.view.*
 
@@ -32,14 +32,13 @@ class PlaceHolderView @JvmOverloads constructor(
     fun showLoading(show: Boolean){
         view.apply {
             img_retry.show(false)
-            txt_placeholder.show(false)
             progress_bar.show(show)
         }
-        show(show)
+        show()
     }
 
     fun showEmpty(message: String?){
-        mainView?.show(false)
+        mainView?.invisible()
         show()
         view.apply {
             img_retry.show(false)
@@ -51,7 +50,7 @@ class PlaceHolderView @JvmOverloads constructor(
     }
 
     fun showError(message: String?){
-        mainView?.show(false)
+        mainView?.invisible()
         show()
         view.apply {
             txt_placeholder.apply {
@@ -69,7 +68,7 @@ class PlaceHolderView @JvmOverloads constructor(
             img_retry.show(false)
             txt_placeholder.apply {
                 text = ""
-                show(false)
+                invisible(false)
             }
         }
     }

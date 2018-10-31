@@ -9,7 +9,7 @@
         android:id="@+id/txt_placeholder"
         style="@style/Text.SubItem"
         tools:text="Empty"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:layout_centerInParent="true"
         />
 
@@ -28,7 +28,9 @@
         android:id="@+id/progress_bar"
         style="@style/WrapContent"
         android:visibility="gone"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/txt_placeholder"
+        android:layout_marginBottom="@dimen/_5sdp"
         android:indeterminateTint="@color/colorAccent"
         />
 

@@ -4,6 +4,6 @@
     android:id="@+id/cb_favorite"
     style="@style/WrapContent"
     android:button="@drawable/bg_search"
-    android:checked="true"
+    android:checked="false"
     tools:background="@android:color/black">
 </CheckBox>
